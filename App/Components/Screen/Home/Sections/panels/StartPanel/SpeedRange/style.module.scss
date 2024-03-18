@@ -1,0 +1,95 @@
+.speedPanel {
+    width: 100%;
+    margin-top: 15%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 17px;
+
+    .title {
+        font-size: 1.3rem;
+    }
+
+    input {
+        width: 80%;
+        cursor: grab;
+        -webkit-appearance: none;
+        border-radius: 15px;
+        --range: calc(var(--max) - var(--min));
+        --ratio: calc((var(--value) - var(--min)) / var(--range));
+        --sx: calc(0.5 * 2em + var(--ratio) * (100% - 2em));
+
+        &:focus {
+            outline: none;
+
+        }
+        &:active {
+            cursor: grabbing;
+        }
+
+        /*webkit*/
+        &::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 2em;
+            height: 2em;
+            border-radius: 1em;
+            background: radial-gradient(#3A3A3A 50%, #FF9130 50%);
+            border: none;
+            box-shadow: 0 0 2px black;
+            margin-top: calc(max((1em - 1px - 1px) * 0.5, 0px) - 2em * 0.5);
+            position: relative;
+            
+        }
+
+
+        &::-webkit-slider-runnable-track {
+            height: 1em;
+            border: 1px solid #3A3A3A;
+            border-radius: 0.5em;
+            background: #FF9130;
+            box-shadow: none;
+        }
+
+        &:hover::-webkit-slider-runnable-track {
+            background: #FF9130;
+            border-color: #3A3A3A;
+        }
+
+        &::-webkit-slider-thumb:active {
+            background: radial-gradient(#3A3A3A 50%, #FF9130 50%);
+        }
+
+        &:active::-webkit-slider-runnable-track {
+            background: #FF9130;
+            border-color: #3A3A3A;
+        }
+
+        &::-webkit-slider-runnable-track {
+            background: linear-gradient(#FF9130, #FF9130) 0/var(--sx) 100% no-repeat, #D9D9D9;
+        }
+
+        &:hover::-webkit-slider-runnable-track {
+            background: linear-gradient(#FF9130, #FF9130) 0/var(--sx) 100% no-repeat, #D9D9D9;
+        }
+
+        &:active::-webkit-slider-runnable-track {
+            background: linear-gradient(#FF9130, #FF9130) 0/var(--sx) 100% no-repeat, #D9D9D9;
+        }
+
+    }
+
+    .speedLine {
+        width: 80%;
+        height: 60px;
+        .speedCount {
+            width: 50px;
+            height: 50px;
+            background-color: #3A3A3A;
+            display: grid;
+            place-items: center;
+            border-radius: 9px;
+            transition: transform 0.1s cubic-bezier(0.5, 0.35, 0.17, 1.21);;
+    
+        }
+    }
+}
