@@ -1,4 +1,3 @@
-import { useEffect, useRef } from 'react'
 import style from './style.module.scss'
 import SpeedRange from './SpeedRange/SpeedRange'
 import Schematics from './Schematics/Schematics'

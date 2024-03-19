@@ -1,13 +1,14 @@
+import { useDispatch } from 'react-redux'
 import style from './style.module.scss'
-import { ICanvas } from "../../../../../assets/interface/Canvas"
-import { CanvasClass } from "./../../../../../assets/class/CanvasClass"
 import { useEffect, useRef } from 'react'
-const Canvas = (settingCanvas: ICanvas) => {
+import { actions } from '../../../../../../src/store/GameSettings/GameSettings.slice'
+const Canvas = () => {
     const Elcanvas = useRef<HTMLCanvasElement>(null)
-
+    const dispatch = useDispatch()
     useEffect(() => {
         if (Elcanvas.current == null) return
-        const canvasClass = new CanvasClass(settingCanvas, Elcanvas.current)
+        dispatch(actions.init(Elcanvas.current))
+        // const canvasClass = new CanvasClass(Elcanvas.current)
         // setTimeout(()=>{
         //     canvasClass.start()
         // }, 7000)
@@ -16,7 +17,7 @@ const Canvas = (settingCanvas: ICanvas) => {
 
     return (
         <div className={style.zoneCanvas}>
-            <canvas ref={Elcanvas} className={style.canvas} style={{ backgroundColor: settingCanvas.bgColor }}></canvas>
+            <canvas ref={Elcanvas} className={style.canvas}></canvas>
         </div>
     )
 

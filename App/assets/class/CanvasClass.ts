@@ -2,7 +2,15 @@ import { ICanvas } from './../interface/Canvas'
 import { Tsize } from './../type/Size'
 
 export class CanvasClass {
-    private settings: ICanvas
+    private settings: ICanvas = {
+        width: 50,
+        height: 50,
+        sizePix: 15,
+        emerges: [3],
+        survives: [2, 3],
+        bgColor: "rgb(255, 255, 255)",
+        timeUp: 2
+    }
     private canvas: HTMLCanvasElement
     private ctx: CanvasRenderingContext2D
 
@@ -10,13 +18,13 @@ export class CanvasClass {
     private isRun: boolean = false
 
     private dataPix: number[] = []
+    private oldDataPix: number[] = []
     private livePix: number[] = []
     private deadPix: number[] = []
 
     private interval: number = 0
 
-    constructor(settings: ICanvas, canvas: HTMLCanvasElement) {
-        this.settings = settings
+    constructor(canvas: HTMLCanvasElement) {
         this.canvas = canvas
         this.ctx = <CanvasRenderingContext2D>canvas.getContext('2d');
         this.ctx.imageSmoothingEnabled = false
@@ -37,11 +45,11 @@ export class CanvasClass {
             }
 
         })
-        this.canvas.addEventListener('mousedown', mouse => this.isMove = true)
-        this.canvas.addEventListener('mouseup', mouse => this.isMove = false)
+        this.canvas.addEventListener('mousedown', () => this.isMove = true)
+        this.canvas.addEventListener('mouseup', () => this.isMove = false)
         this.canvas.addEventListener('click', mouse => this.drawPix(mouse.offsetX, mouse.offsetY))
 
-
+        this.setBgColor(this.settings.bgColor)
         this.updateSizeCanvas()
         this.drawMesh()
     }
@@ -54,6 +62,10 @@ export class CanvasClass {
         const pxId = (x - x % this.settings.sizePix) / this.settings.sizePix + (((y - y % this.settings.sizePix)) / this.settings.sizePix) * this.settings.width
         this.dataPix[pxId] = 1
 
+    }
+
+    private setBgColor(rgb: string) {
+        this.canvas.style.backgroundColor = rgb
     }
 
     private delete(s: Tsize): void {
@@ -111,23 +123,23 @@ export class CanvasClass {
             if (this.dataPix[i - this.settings.width]) neighbors++
             if (this.dataPix[i - this.settings.width - 1]) neighbors++
             if (this.dataPix[i - this.settings.width + 1]) neighbors++
-            
+
             if (!this.settings.emerges.indexOf(neighbors) && this.dataPix[i] == 0)
-            this.livePix.push(i)
-        
-        else if (this.settings.survives.indexOf(neighbors) == -1 && this.dataPix[i] > 0)
-        this.deadPix.push(i)
-    
-}
-this.recalculation()
-this.delete({ x: 0, y: 0, width: this.settings.width * this.settings.sizePix, height: this.settings.height * this.settings.sizePix })
-this.renderCanvas()
-}
+                this.livePix.push(i)
+
+            else if (this.settings.survives.indexOf(neighbors) == -1 && this.dataPix[i] > 0)
+                this.deadPix.push(i)
+
+        }
+        this.recalculation()
+        this.delete({ x: 0, y: 0, width: this.settings.width * this.settings.sizePix, height: this.settings.height * this.settings.sizePix })
+        this.renderCanvas(false)
+    }
 
 
 
-private drawMesh(): void {
-    this.ctx.beginPath()
+    private drawMesh(): void {
+        this.ctx.beginPath()
         this.ctx.lineWidth = 2
         this.ctx.strokeStyle = "rgb(0, 0, 0)"
         for (let x = this.settings.sizePix; x < this.canvas.width; x += this.settings.sizePix) {
@@ -141,24 +153,43 @@ private drawMesh(): void {
         this.ctx.stroke();
     }
 
-    private renderCanvas(): void {
-        for (let i = this.dataPix.length; i--;) {
+    private renderCanvas(isOldPix?:boolean): void {
+        const pixdata:number[] = isOldPix ? this.oldDataPix : this.dataPix
 
-            if (this.dataPix[i])
+        for (let i = pixdata.length; i--;) {
+
+            if (pixdata[i])
                 this.drawPix(i % this.settings.width * this.settings.sizePix, Math.floor(i / this.settings.width) * this.settings.sizePix)
         }
     }
 
+
+    //TODO
+    public restart(IsSaveData: boolean): void {
+        
+        this.isRun = false
+        clearInterval(this.interval)
+        this.delete({ x: 0, y: 0, width: this.canvas.width, height: this.canvas.height })
+        this.drawMesh()
+
+        if (IsSaveData)
+            this.renderCanvas(true)
+        else
+            this.dataPix = []
+
+
+    }
+
+
+
     public start(): void {
         this.isRun = true
+        this.oldDataPix = this.dataPix
         this.interval = setInterval(() => {
             this.check()
         }, 1000 / this.settings.timeUp)
     }
-    public stop(): void {
-        this.isRun = false
-        clearInterval(this.interval)
-    }
+
 
 }
 

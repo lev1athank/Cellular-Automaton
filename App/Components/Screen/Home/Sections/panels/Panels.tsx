@@ -5,7 +5,7 @@ import ColorPanel from './ColorPanel/ColorPanel'
 import style from './style.module.scss'
 import { IBookmarkList } from './../../../../../assets/interface/BookmarkBtn'
 import BookmarkBtn from './../../../../../shared/BookmarkBtn/BookmarkBtn'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 
 const store: IBookmarkList[] = [{

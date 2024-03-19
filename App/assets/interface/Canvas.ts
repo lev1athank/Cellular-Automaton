@@ -5,7 +5,7 @@ export interface ICanvas {
     emerges: number[],
     survives: number[],
     timeUp: number,
-    bgColor?: string,
+    bgColor: string,
     lineColor?: string,
     cellColor?: string
 }
