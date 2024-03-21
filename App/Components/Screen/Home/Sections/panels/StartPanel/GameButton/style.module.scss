@@ -1,15 +1,16 @@
 .gamePanel {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    gap: 20px;
     width: 90%;
 
     button {
         font-size: 1.3rem;
         background-color: #3A3A3A;
         border-radius: 15px;
-        width: 200px;
         height: 60px;
         position: relative;
+        padding: 5px 20px;
         display: flex;
         align-items: center;
         border: none;

@@ -2,14 +2,14 @@ import { ICanvas } from './../interface/Canvas'
 import { Tsize } from './../type/Size'
 
 export class CanvasClass {
-    private settings: ICanvas = {
+    public settings: ICanvas = {
         width: 50,
         height: 50,
         sizePix: 15,
         emerges: [3],
         survives: [2, 3],
         bgColor: "rgb(255, 255, 255)",
-        timeUp: 2
+        timeUp: 1
     }
     private canvas: HTMLCanvasElement
     private ctx: CanvasRenderingContext2D
@@ -17,8 +17,7 @@ export class CanvasClass {
     private isMove: boolean = false
     private isRun: boolean = false
 
-    private dataPix: number[] = []
-    private oldDataPix: number[] = []
+    private dataPix: number[] = new Array(this.settings.width * this.settings.height).fill(0)
     private livePix: number[] = []
     private deadPix: number[] = []
 
@@ -60,7 +59,7 @@ export class CanvasClass {
         this.ctx.stroke()
 
         const pxId = (x - x % this.settings.sizePix) / this.settings.sizePix + (((y - y % this.settings.sizePix)) / this.settings.sizePix) * this.settings.width
-        this.dataPix[pxId] = 1
+        this.dataPix[pxId] = 2
 
     }
 
@@ -100,14 +99,18 @@ export class CanvasClass {
 
     private recalculation(): void {
 
+        console.log(this.dataPix.filter(el=>el));
+        
         for (let live = this.livePix.length; live--;) {
             this.dataPix[this.livePix[live]] = 1
         }
         for (let dead = this.deadPix.length; dead--;) {
-            this.dataPix[this.deadPix[dead]] -= 1
+            debugger
+            console.log(this.dataPix[dead]);
+            this.dataPix[dead] = this.dataPix[dead] - 1
         }
 
-        this.deadPix = []
+        this.deadPix = new Array(this.settings.width * this.settings.height).fill(0)
         this.livePix = []
 
     }
@@ -128,12 +131,12 @@ export class CanvasClass {
                 this.livePix.push(i)
 
             else if (this.settings.survives.indexOf(neighbors) == -1 && this.dataPix[i] > 0)
-                this.deadPix.push(i)
+                this.deadPix[i] = this.dataPix[i]
 
         }
         this.recalculation()
         this.delete({ x: 0, y: 0, width: this.settings.width * this.settings.sizePix, height: this.settings.height * this.settings.sizePix })
-        this.renderCanvas(false)
+        this.renderCanvas()
     }
 
 
@@ -153,42 +156,48 @@ export class CanvasClass {
         this.ctx.stroke();
     }
 
-    private renderCanvas(isOldPix?:boolean): void {
-        const pixdata:number[] = isOldPix ? this.oldDataPix : this.dataPix
+    private renderCanvas(): void {
+        for (let i = this.dataPix.length; i--;) {
 
-        for (let i = pixdata.length; i--;) {
-
-            if (pixdata[i])
+            if (this.dataPix[i])
                 this.drawPix(i % this.settings.width * this.settings.sizePix, Math.floor(i / this.settings.width) * this.settings.sizePix)
         }
     }
 
 
-    //TODO
+    
     public restart(IsSaveData: boolean): void {
-        
+
         this.isRun = false
         clearInterval(this.interval)
         this.delete({ x: 0, y: 0, width: this.canvas.width, height: this.canvas.height })
         this.drawMesh()
 
         if (IsSaveData)
-            this.renderCanvas(true)
+            this.renderCanvas()
         else
-            this.dataPix = []
+        {
+            this.dataPix = new Array(this.settings.width * this.settings.height).fill(0)
+        }
 
 
     }
 
-
-
     public start(): void {
         this.isRun = true
-        this.oldDataPix = this.dataPix
+        this.setMoveSpeed(this.settings.timeUp)
+    }
+
+    public setMoveSpeed(speed:number):void {
+        this.settings.timeUp = speed
+        clearInterval(this.interval)
         this.interval = setInterval(() => {
             this.check()
         }, 1000 / this.settings.timeUp)
     }
+
+
+    
 
 
 }

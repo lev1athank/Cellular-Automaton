@@ -29,7 +29,7 @@ const store: IBookmarkList[] = [{
 const Panels = () => {
 
 
-    const [activeEl, setActiveEl] = useState<TfunState>({ el: <></>, text: '' })
+    const [activeEl, setActiveEl] = useState<TfunState>({ el: <StartPanel />, text: '' })
 
     type TfunState = {
         el: JSX.Element;
@@ -43,7 +43,7 @@ const Panels = () => {
             <div className={style.panel}>
                 <div className={style.bookmark}>
                     {
-                        store.map((v, i) => <BookmarkBtn {...v} isActive={v.text == activeEl.text} setActive={setActiveEl} key={i} />)
+                        store.map((v, i) => <BookmarkBtn {...v} isActive={v.text == activeEl.text || i == 0} setActive={setActiveEl} key={i} />)
                     }
                 </div>
                 <div className={style.place}>

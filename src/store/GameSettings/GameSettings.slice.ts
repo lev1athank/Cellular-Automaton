@@ -23,6 +23,10 @@ export const settingsSlice = createSlice({
 
         clear: state => {
             state.GameClass?.restart(false)
+        },
+
+        setMoveSpeed: (state, {payload: speed}: PayloadAction<number>) => {
+            state.GameClass?.setMoveSpeed(speed)
         }
     },
 })
