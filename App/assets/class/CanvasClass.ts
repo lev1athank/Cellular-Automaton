@@ -31,22 +31,35 @@ export class CanvasClass {
         this.init()
     }
 
-    private init(): void {
-        this.canvas.addEventListener('mousemove', mouse => {
-            if (this.isMove && !this.isRun) {
-                if (mouse.which == 1)
-                    this.drawPix(mouse.offsetX, mouse.offsetY)
-                else {
-                    this.delete({ x: mouse.offsetX, y: mouse.offsetY })
-                    this.drawMesh()
+    setMouseEvents(state: boolean):void {
+        if(state) {
+            this.canvas.addEventListener('mousemove', mouse => {
+                if (this.isMove && !this.isRun) {
+                    if (mouse.which == 1)
+                        this.drawPix(mouse.offsetX, mouse.offsetY)
+                    else {
+                        this.delete({ x: mouse.offsetX, y: mouse.offsetY })
+                        this.drawMesh()
+                    }
+    
                 }
+    
+            })
+            this.canvas.addEventListener('mousedown', () => this.isMove = true)
+            this.canvas.addEventListener('mouseup', () => this.isMove = false)
+            this.canvas.addEventListener('click', mouse => this.drawPix(mouse.offsetX, mouse.offsetY))
+    
+        }else {
+            this.canvas.addEventListener('mousemove', ()=>{})
+            this.canvas.addEventListener('mousedown', ()=>{})
+            this.canvas.addEventListener('mouseup', ()=>{})
+            this.canvas.addEventListener('click', ()=>{})
+    
+        }
+    }
 
-            }
-
-        })
-        this.canvas.addEventListener('mousedown', () => this.isMove = true)
-        this.canvas.addEventListener('mouseup', () => this.isMove = false)
-        this.canvas.addEventListener('click', mouse => this.drawPix(mouse.offsetX, mouse.offsetY))
+    private init(): void {
+        this.setMouseEvents(true)
 
         this.setBgColor(this.settings.bgColor)
         this.updateSizeCanvas()
@@ -105,9 +118,7 @@ export class CanvasClass {
             this.dataPix[this.livePix[live]] = 1
         }
         for (let dead = this.deadPix.length; dead--;) {
-            debugger
-            console.log(this.dataPix[dead]);
-            this.dataPix[dead] = this.dataPix[dead] - 1
+            this.dataPix[this.deadPix[dead]] = 0
         }
 
         this.deadPix = new Array(this.settings.width * this.settings.height).fill(0)
@@ -131,7 +142,7 @@ export class CanvasClass {
                 this.livePix.push(i)
 
             else if (this.settings.survives.indexOf(neighbors) == -1 && this.dataPix[i] > 0)
-                this.deadPix[i] = this.dataPix[i]
+                this.deadPix.push(i)
 
         }
         this.recalculation()
