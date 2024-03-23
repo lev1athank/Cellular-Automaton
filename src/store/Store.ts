@@ -1,9 +1,14 @@
-import { configureStore } from '@reduxjs/toolkit'
-import reducer from './GameSettings/GameSettings.slice'
+import { combineReducers, configureStore } from '@reduxjs/toolkit'
+import gameSettings from './GameSettings/GameSettings.slice' 
+import printsGame from './Prints/Prints.slice' 
+
+const reducerCombine = combineReducers({
+  gameSetting: gameSetting,
+  printsGame: prints
+})
+
 export const Store = configureStore({
-  reducer: {
-    gameSetting: reducer
-  },
+  reducer: reducerCombine,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,

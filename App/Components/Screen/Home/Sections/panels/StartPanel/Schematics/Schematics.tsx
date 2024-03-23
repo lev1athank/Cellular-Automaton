@@ -1,7 +1,9 @@
 import style from './style.module.scss'
 import Scheme from './Scheme/Scheme'
+import { useDispatch } from 'react-redux'
 
 const Schematics = () => {
+    const dispatch = useDispatch()
     return (
         <div className={style.schematicsPanel}>
             <span>готовые схемы</span>
