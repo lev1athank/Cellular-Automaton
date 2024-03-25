@@ -1,0 +1,19 @@
+.schemes {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 20px;
+    height: 100%;
+    width: 400px;
+
+
+}
+
+i {
+    font-size: 6rem;
+    cursor: pointer;
+    transition: transform 0.2s cubic-bezier(0.215, 0.610, 0.355, 1);
+    &:hover {
+        transform: scale(1.1);
+    }
+}

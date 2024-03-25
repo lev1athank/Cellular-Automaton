@@ -4,10 +4,11 @@ import { useEffect, useRef } from 'react'
 import { actions } from '../../../../../../src/store/GameSettings/GameSettings.slice'
 const Canvas = () => {
     const Elcanvas = useRef<HTMLCanvasElement>(null)
+    const liveCountEl = useRef<HTMLElement>(null)
     const dispatch = useDispatch()
     useEffect(() => {
-        if (Elcanvas.current == null) return
-        dispatch(actions.init(Elcanvas.current))
+        if (Elcanvas.current == null && liveCountEl.current == null) return
+        dispatch(actions.init([Elcanvas.current, liveCountEl.current]))
         // const canvasClass = new CanvasClass(Elcanvas.current)
         // setTimeout(()=>{
         //     canvasClass.start()
@@ -17,7 +18,8 @@ const Canvas = () => {
 
     return (
         <div className={style.zoneCanvas}>
-            <canvas ref={Elcanvas} className={style.canvas}></canvas>
+            <span className={style.countLiveAge} ref={liveCountEl}>прошло жизней: 0</span>
+            <canvas ref={Elcanvas} className={style.canvas} ></canvas>
         </div>
     )
 

@@ -1,20 +1,12 @@
 import style from './style.module.scss'
-import Scheme from './Scheme/Scheme'
-import { useDispatch } from 'react-redux'
-
+import ShamaticsCarousel from './ShamaticsCarousel/ShamaticsCarousel'
 const Schematics = () => {
-    const dispatch = useDispatch()
+
     return (
         <div className={style.schematicsPanel}>
             <span>готовые схемы</span>
             <div className={style.carouselSchemes}>
-                <i className="fa-solid fa-caret-left"></i>
-                <div className={style.schemes}>
-                    <Scheme />
-                    <Scheme />
-                    <Scheme />
-                </div>
-                <i className="fa-solid fa-caret-right"></i>
+                <ShamaticsCarousel />
             </div>
         </div>
     )

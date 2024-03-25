@@ -3,6 +3,15 @@
     width: 50%;
     height: 100%;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: end;
+    justify-content: center;
+    position: relative;
+
+    .countLiveAge { 
+        margin-bottom: 10px;
+        font-size: 1.2rem;
+        color: #d9d9d9;
+    }
+
 }

@@ -1,7 +1,10 @@
+import { useDispatch } from 'react-redux'
+import { IPrintData } from '../interface/GameState.interface'
 import { ICanvas } from './../interface/Canvas'
 import { Tsize } from './../type/Size'
+import { actions } from '../../../src/store/GameSettings/GameSettings.slice'
 
-export class CanvasClass {
+export class CanvasClass  {
     public settings: ICanvas = {
         width: 50,
         height: 50,
@@ -11,68 +14,124 @@ export class CanvasClass {
         bgColor: "rgb(255, 255, 255)",
         timeUp: 1
     }
+
+    private liveCountEl: HTMLElement
     private canvas: HTMLCanvasElement
     private ctx: CanvasRenderingContext2D
 
     private isMove: boolean = false
     private isRun: boolean = false
+    private isPrint: boolean = false
 
     private dataPix: number[] = new Array(this.settings.width * this.settings.height).fill(0)
     private livePix: number[] = []
     private deadPix: number[] = []
+    private liveCount: number = 0
+    private activePrint: IPrintData | null = null
+
 
     private interval: number = 0
 
-    constructor(canvas: HTMLCanvasElement) {
+    constructor(canvas: HTMLCanvasElement, countLiveEl:HTMLElement) {
         this.canvas = canvas
+        this.liveCountEl = countLiveEl
+        
         this.ctx = <CanvasRenderingContext2D>canvas.getContext('2d');
         this.ctx.imageSmoothingEnabled = false
         this.ctx.imageSmoothingQuality = "high"
         this.init()
     }
 
-    setMouseEvents(state: boolean):void {
-        if(state) {
-            this.canvas.addEventListener('mousemove', mouse => {
-                if (this.isMove && !this.isRun) {
-                    if (mouse.which == 1)
-                        this.drawPix(mouse.offsetX, mouse.offsetY)
-                    else {
-                        this.delete({ x: mouse.offsetX, y: mouse.offsetY })
-                        this.drawMesh()
-                    }
-    
+    private setMouseEvents(): void {
+        this.canvas.addEventListener('mousemove', mouse => {
+            if(this.isRun) return
+            if (!this.isPrint && this.isMove) {
+                if (mouse.which == 1)
+                    this.drawPix(mouse.offsetX, mouse.offsetY, true)
+                else {
+                    this.delete({ x: mouse.offsetX, y: mouse.offsetY })
+                    this.drawMesh()
                 }
-    
-            })
-            this.canvas.addEventListener('mousedown', () => this.isMove = true)
-            this.canvas.addEventListener('mouseup', () => this.isMove = false)
-            this.canvas.addEventListener('click', mouse => this.drawPix(mouse.offsetX, mouse.offsetY))
-    
-        }else {
-            this.canvas.addEventListener('mousemove', ()=>{})
-            this.canvas.addEventListener('mousedown', ()=>{})
-            this.canvas.addEventListener('mouseup', ()=>{})
-            this.canvas.addEventListener('click', ()=>{})
-    
-        }
+            }
+            else if (this.isPrint) {
+                this.previewPrint(mouse.offsetX, mouse.offsetY)
+            }
+
+        })
+        this.canvas.addEventListener('mousedown', () => this.isMove = true)
+        this.canvas.addEventListener('mouseup', () => this.isMove = false)
+        this.canvas.addEventListener('mouseleave', () => {
+            if(this.isRun) return
+            this.delete({ x: 0, y: 0, width: this.canvas.width, height: this.canvas.height })
+            this.drawMesh()
+            this.renderCanvas()
+
+
+
+        });
+
+        this.canvas.addEventListener('click', mouse => {
+            if(this.isRun) return
+
+            if (this.isPrint)
+                this.drawPrint(mouse.offsetX, mouse.offsetY)
+            else
+                this.drawPix(mouse.offsetX, mouse.offsetY, true)
+        })
+    }
+
+    public setPrintMode = (isPrint: boolean, activePrint: IPrintData | null) => {
+        this.isPrint = isPrint
+        this.activePrint = activePrint
     }
 
     private init(): void {
-        this.setMouseEvents(true)
+        this.setMouseEvents()
 
         this.setBgColor(this.settings.bgColor)
         this.updateSizeCanvas()
         this.drawMesh()
     }
 
-    private drawPix(x: number, y: number): void {
+    private drawPix(x: number, y: number, isSave?: boolean): void {
+
         this.ctx.beginPath()
         this.ctx.fillRect(x - x % this.settings.sizePix, y - y % this.settings.sizePix, this.settings.sizePix, this.settings.sizePix)
         this.ctx.stroke()
 
-        const pxId = (x - x % this.settings.sizePix) / this.settings.sizePix + (((y - y % this.settings.sizePix)) / this.settings.sizePix) * this.settings.width
-        this.dataPix[pxId] = 2
+        if (isSave)
+            this.dataPix[(x - x % this.settings.sizePix) / this.settings.sizePix + (((y - y % this.settings.sizePix)) / this.settings.sizePix) * this.settings.width] = 1
+
+    }
+
+    private previewPrint(x: number, y: number): void {
+
+        // console.log(x - x % this.settings.sizePix, y - y % this.settings.sizePix);
+        this.delete({ x: 0, y: 0, width: this.canvas.width, height: this.canvas.height })
+        this.drawMesh()
+        // this.dataPix = this.backupDataPix.slice()
+        this.renderCanvas()
+        if (!this.activePrint) return
+        for (let pixY = this.activePrint?.height; pixY--;)
+            for (let pixX = this.activePrint?.width; pixX--;) {
+                if (this.activePrint.print[pixX + pixY * this.activePrint.width]) {
+                    this.drawPix(((x - x % this.settings.sizePix) + pixX * this.settings.sizePix), ((y - y % this.settings.sizePix) + pixY * this.settings.sizePix))
+                }
+            }
+        console.log("===================");
+
+
+    }
+
+    private drawPrint(x: number, y: number): void {
+        if (!this.activePrint) return
+        for (let pixY = this.activePrint?.height; pixY--;)
+            for (let pixX = this.activePrint?.width; pixX--;) {
+                if (this.activePrint.print[pixX + pixY * this.activePrint.width]) {
+                    this.drawPix(((x - x % this.settings.sizePix) + pixX * this.settings.sizePix), ((y - y % this.settings.sizePix) + pixY * this.settings.sizePix), true)
+                }
+            }
+        // this.backupDataPix = this.dataPix.slice()
 
     }
 
@@ -112,8 +171,8 @@ export class CanvasClass {
 
     private recalculation(): void {
 
-        console.log(this.dataPix.filter(el=>el));
-        
+        console.log(this.dataPix.filter(el => el));
+
         for (let live = this.livePix.length; live--;) {
             this.dataPix[this.livePix[live]] = 1
         }
@@ -127,6 +186,7 @@ export class CanvasClass {
     }
 
     private check(): void {
+
         for (let i = this.dataPix.length; i--;) {
             let neighbors = 0
             if (this.dataPix[i + 1] && i % this.settings.width != 0) neighbors++
@@ -143,6 +203,7 @@ export class CanvasClass {
 
             else if (this.settings.survives.indexOf(neighbors) == -1 && this.dataPix[i] > 0)
                 this.deadPix.push(i)
+
 
         }
         this.recalculation()
@@ -176,7 +237,7 @@ export class CanvasClass {
     }
 
 
-    
+
     public restart(IsSaveData: boolean): void {
 
         this.isRun = false
@@ -186,12 +247,18 @@ export class CanvasClass {
 
         if (IsSaveData)
             this.renderCanvas()
-        else
-        {
+        else {
             this.dataPix = new Array(this.settings.width * this.settings.height).fill(0)
+            this.setLiveCount(0)
+
         }
 
 
+    }
+
+    private setLiveCount(count:number):void {
+        count ? this.liveCount++ : this.liveCount = 0
+        this.liveCountEl.innerText = "прошло жизней:" + this.liveCount.toString()
     }
 
     public start(): void {
@@ -199,16 +266,17 @@ export class CanvasClass {
         this.setMoveSpeed(this.settings.timeUp)
     }
 
-    public setMoveSpeed(speed:number):void {
+    public setMoveSpeed(speed: number): void {
         this.settings.timeUp = speed
         clearInterval(this.interval)
         this.interval = setInterval(() => {
             this.check()
+            this.setLiveCount(1)
         }, 1000 / this.settings.timeUp)
     }
 
 
-    
+
 
 
 }
