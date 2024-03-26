@@ -9,19 +9,19 @@ import { useState } from 'react'
 
 
 const store: IBookmarkList[] = [{
-    text: "Игра",
+    text: "fa-solid fa-gamepad",
     element: <StartPanel />,
 },
 {
-    text: "Настройки",
+    text: "fa-solid fa-gear",
     element: <SettingPanel />,
 },
 {
-    text: "Правила",
+    text: "fa-solid fa-heart-pulse",
     element: <RulesPanel />,
 },
 {
-    text: "Цвета",
+    text: "fa-solid fa-palette",
     element: <ColorPanel />,
 },]
 
@@ -30,6 +30,7 @@ const Panels = () => {
 
 
     const [activeEl, setActiveEl] = useState<TfunState>({ el: <StartPanel />, text: '' })
+    const [isClosePanel, setClosePanel] = useState<boolean>(false)
 
     type TfunState = {
         el: JSX.Element;
@@ -37,19 +38,22 @@ const Panels = () => {
     }
 
     console.log(activeEl.el);
-    
+
     return (
         <div className={style.zonePalen}>
+            <div className={style.openPanel} onClick={() => setClosePanel(false)}>
+                <img src='unwrap.svg' />
+            </div>
             <div className={style.panel}>
                 <div className={style.bookmark}>
                     {
-                        store.map((v, i) => <BookmarkBtn {...v} isActive={v.text == activeEl.text || i == 0} setActive={setActiveEl} key={i} />)
+                        store.map((v, i) => <BookmarkBtn {...v} isActive={v.text == activeEl.text || (i == 0 && activeEl.text == v.text)} setActive={setActiveEl} key={i} />)
                     }
                 </div>
                 <div className={style.place}>
-                {
-                    activeEl.el
-                }
+                    {
+                        activeEl.el
+                    }
                 </div>
             </div>
         </div>

@@ -1,13 +1,11 @@
-import { useDispatch } from 'react-redux'
 import { IPrintData } from '../interface/GameState.interface'
 import { ICanvas } from './../interface/Canvas'
 import { Tsize } from './../type/Size'
-import { actions } from '../../../src/store/GameSettings/GameSettings.slice'
 
 export class CanvasClass  {
     public settings: ICanvas = {
-        width: 50,
-        height: 50,
+        width: 30,
+        height: 30,
         sizePix: 15,
         emerges: [3],
         survives: [2, 3],

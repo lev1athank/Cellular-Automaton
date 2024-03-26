@@ -1,7 +1,7 @@
 .zoneCanvas {
     min-width: 50%;
     width: 50%;
-    height: 100%;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -9,6 +9,7 @@
     position: relative;
 
     .countLiveAge { 
+        margin-top: 30px;
         margin-bottom: 10px;
         font-size: 1.2rem;
         color: #d9d9d9;

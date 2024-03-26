@@ -7,18 +7,43 @@
     gap: 20px;
     flex-direction: column;
 
+    .openPanel {
+        position: fixed;
+        width: 40px;
+        height: 40px;
+        background-color: #FF9130;
+        border-radius: 9px;
+        margin: 10px;
+        top: 0;
+        right: 0;
+        z-index: 100;
+        display: grid;
+        place-items: center;
+        cursor: pointer;
+        transition: transform 0.2s cubic-bezier(0.23, 1, 0.320, 1);
+
+        &:hover {
+            transform: scale(1.1);
+        }
+        
+    }
+
 
     .panel {
         border-radius: 15px;
+        position: absolute;
+        z-index: 999;
         border: 1px solid #FF9130;
-        width: clamp(800px, 60%, 70%);
+        width: 650px;
         min-height: 500px;
         overflow: hidden;
         display: flex;
         align-items: center;
+        background-color: #222;
+        position: relative;
 
         .bookmark {
-            width: 25%;
+            width: 65px;
             height: 100%;
             display: flex;
             align-items: start;
