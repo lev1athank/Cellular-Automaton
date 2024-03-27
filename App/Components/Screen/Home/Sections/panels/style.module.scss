@@ -1,11 +1,9 @@
 .zonePalen {
-    width: 50%;
+    width: 100%;
     height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    flex-direction: column;
+    position: relative;
+    top: 0;
+    left: 0;
 
     .openPanel {
         position: fixed;
@@ -21,53 +19,100 @@
         place-items: center;
         cursor: pointer;
         transition: transform 0.2s cubic-bezier(0.23, 1, 0.320, 1);
-
+        animation: spawn;
+        animation-duration: 0.2s;
+        animation-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        animation-fill-mode: forwards;
         &:hover {
             transform: scale(1.1);
         }
-        
+
     }
 
-
-    .panel {
-        border-radius: 15px;
+    .panelEl {
         position: absolute;
         z-index: 999;
-        border: 1px solid #FF9130;
-        width: 650px;
-        min-height: 500px;
-        overflow: hidden;
-        display: flex;
-        align-items: center;
-        background-color: #222;
-        position: relative;
+        top: 25%;
+        right: 45%;
 
-        .bookmark {
-            width: 65px;
-            height: 100%;
+        animation: spawn;
+        animation-duration: 1.2s;
+        animation-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        animation-fill-mode: forwards;
+
+        .panelBtn {
             display: flex;
-            align-items: start;
-            justify-content: space-around;
-            flex-direction: column;
+            position: absolute;
+            gap: 10px;
+            top: -50px;
+            right: 10px;
+
+            .btn {
+                border: 0;
+                background-color: #FF9130;
+                border-radius: 9px;
+                border: 1px solid #222;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 40px;
+                height: 40px;
+                .icon {
+                    font-size: 2rem;
+                }
+            }
+
+        }
+
+        .panel {
+            border-radius: 15px;
+            border: 1px solid #FF9130;
+            width: 650px;
+            height: 500px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            background-color: #222;
             position: relative;
 
-            &::before {
-                content: '';
-                z-index: 1;
-                position: absolute;
-                top: 0;
-                left: 0;
+
+
+            .bookmark {
+                width: 65px;
+                height: 500px;
+                display: flex;
+                align-items: start;
+                justify-content: space-around;
+                flex-direction: column;
+                position: relative;
+
+                &::before {
+                    content: '';
+                    z-index: 1;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: #313131;
+                    ;
+                }
+            }
+
+            .place {
                 width: 100%;
-                height: 100%;
-                background-color: #313131;
-                ;
+                margin: 0 20px 0 10%;
+                color: #FF9130; //FFDD83
             }
         }
+    }
+}
 
-        .place {
-            width: 100%;
-            margin: 0 20px 0 10%;
-            color: #FF9130; //FFDD83
-        }
+@keyframes spawn {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
     }
 }

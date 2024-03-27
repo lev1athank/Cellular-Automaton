@@ -41,21 +41,32 @@ const Panels = () => {
 
     return (
         <div className={style.zonePalen}>
-            <div className={style.openPanel} onClick={() => setClosePanel(false)}>
-                <img src='unwrap.svg' />
-            </div>
-            <div className={style.panel}>
-                <div className={style.bookmark}>
-                    {
-                        store.map((v, i) => <BookmarkBtn {...v} isActive={v.text == activeEl.text || (i == 0 && activeEl.text == v.text)} setActive={setActiveEl} key={i} />)
-                    }
-                </div>
-                <div className={style.place}>
-                    {
-                        activeEl.el
-                    }
-                </div>
-            </div>
+            {
+                isClosePanel ? <div className={style.openPanel} onClick={() => setClosePanel(false)}>
+                    <img src='unwrap.svg' />
+                </div> :
+                    <div className={style.panelEl}>
+                        <div className={style.panelBtn}>
+                            <button className={style.btn}><i className={"fa-solid fa-up-down-left-right " + style.icon} style={{ cursor: 'grab' }}></i></button>
+                            <button className={style.btn}><i className={"fa-solid fa-xmark " + style.icon} onClick={() => setClosePanel(true)} ></i></button>
+                        </div>
+                        <div className={style.panel}>
+                            <div className={style.bookmark}>
+                                {
+                                    store.map((v, i) => <BookmarkBtn {...v} isActive={v.text == activeEl.text || (i == 0 && activeEl.text == v.text)} setActive={setActiveEl} key={i} />)
+                                }
+                            </div>
+                            <div className={style.place}>
+                                {
+                                    activeEl.el
+                                }
+                            </div>
+                        </div>
+                    </div>
+            }
+
+
+
         </div>
     )
 }
