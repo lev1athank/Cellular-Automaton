@@ -6,6 +6,7 @@
     left: 0;
 
     .openPanel {
+        display: none;
         position: fixed;
         width: 40px;
         height: 40px;
@@ -30,14 +31,15 @@
     }
 
     .panelEl {
+        display: none;
         position: absolute;
         z-index: 999;
         top: 25%;
         right: 45%;
 
         animation: spawn;
-        animation-duration: 1.2s;
-        animation-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        animation-duration: .2s;
+        animation-timing-function: cubic-bezier(0.28, 0.17, 0.95, 1.21);
         animation-fill-mode: forwards;
 
         .panelBtn {

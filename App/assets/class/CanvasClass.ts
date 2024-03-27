@@ -104,10 +104,8 @@ export class CanvasClass  {
 
     private previewPrint(x: number, y: number): void {
 
-        // console.log(x - x % this.settings.sizePix, y - y % this.settings.sizePix);
         this.delete({ x: 0, y: 0, width: this.canvas.width, height: this.canvas.height })
         this.drawMesh()
-        // this.dataPix = this.backupDataPix.slice()
         this.renderCanvas()
         if (!this.activePrint) return
         for (let pixY = this.activePrint?.height; pixY--;)
@@ -116,7 +114,6 @@ export class CanvasClass  {
                     this.drawPix(((x - x % this.settings.sizePix) + pixX * this.settings.sizePix), ((y - y % this.settings.sizePix) + pixY * this.settings.sizePix))
                 }
             }
-        console.log("===================");
 
 
     }
@@ -266,6 +263,7 @@ export class CanvasClass  {
 
     public setMoveSpeed(speed: number): void {
         this.settings.timeUp = speed
+        if(!this.isRun) return
         clearInterval(this.interval)
         this.interval = setInterval(() => {
             this.check()

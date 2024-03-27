@@ -5,7 +5,7 @@ import ColorPanel from './ColorPanel/ColorPanel'
 import style from './style.module.scss'
 import { IBookmarkList } from './../../../../../assets/interface/BookmarkBtn'
 import BookmarkBtn from './../../../../../shared/BookmarkBtn/BookmarkBtn'
-import { useState } from 'react'
+import { ReactHTMLElement, useRef, useState } from 'react'
 
 
 const store: IBookmarkList[] = [{
@@ -29,9 +29,10 @@ const store: IBookmarkList[] = [{
 const Panels = () => {
 
 
-    const [activeEl, setActiveEl] = useState<TfunState>({ el: <StartPanel />, text: '' })
+    const [activeEl, setActiveEl] = useState<TfunState>({ el: <StartPanel />, text: 'fa-solid fa-gamepad' })
     const [isClosePanel, setClosePanel] = useState<boolean>(false)
 
+    const panle = useRef<HTMLElement>(null)
     type TfunState = {
         el: JSX.Element;
         text: string
@@ -39,31 +40,36 @@ const Panels = () => {
 
     console.log(activeEl.el);
 
+    const movePanel = (e:React.DragEvent) => {
+        console.log();
+        
+    }
+
     return (
         <div className={style.zonePalen}>
-            {
-                isClosePanel ? <div className={style.openPanel} onClick={() => setClosePanel(false)}>
-                    <img src='unwrap.svg' />
-                </div> :
-                    <div className={style.panelEl}>
-                        <div className={style.panelBtn}>
-                            <button className={style.btn}><i className={"fa-solid fa-up-down-left-right " + style.icon} style={{ cursor: 'grab' }}></i></button>
-                            <button className={style.btn}><i className={"fa-solid fa-xmark " + style.icon} onClick={() => setClosePanel(true)} ></i></button>
-                        </div>
-                        <div className={style.panel}>
-                            <div className={style.bookmark}>
-                                {
-                                    store.map((v, i) => <BookmarkBtn {...v} isActive={v.text == activeEl.text || (i == 0 && activeEl.text == v.text)} setActive={setActiveEl} key={i} />)
-                                }
-                            </div>
-                            <div className={style.place}>
-                                {
-                                    activeEl.el
-                                }
-                            </div>
-                        </div>
+
+            <div className={style.openPanel} style={isClosePanel ? {display:'grid'} : {display:'none'}} onClick={() => setClosePanel(false)} onDrag={movePanel}>
+                <img src='unwrap.svg' />
+            </div>
+            <div className={style.panelEl} style={!isClosePanel ? {display:'block'} : {display:'none'}}>
+                <div className={style.panelBtn}>
+                    <button className={style.btn}><i className={"fa-solid fa-up-down-left-right " + style.icon} style={{ cursor: 'grab' }}></i></button>
+                    <button className={style.btn}><i className={"fa-solid fa-xmark " + style.icon} onClick={() => setClosePanel(true)} ></i></button>
+                </div>
+                <div className={style.panel}>
+                    <div className={style.bookmark}>
+                        {
+                            store.map((v, i) => <BookmarkBtn {...v} isActive={v.text == activeEl.text} setActive={setActiveEl} key={i} />)
+                        }
                     </div>
-            }
+                    <div className={style.place}>
+                        {
+                            activeEl.el
+                        }
+                    </div>
+                </div>
+            </div>
+
 
 
 
