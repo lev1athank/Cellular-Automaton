@@ -5,7 +5,7 @@ import ColorPanel from './ColorPanel/ColorPanel'
 import style from './style.module.scss'
 import { IBookmarkList } from './../../../../../assets/interface/BookmarkBtn'
 import BookmarkBtn from './../../../../../shared/BookmarkBtn/BookmarkBtn'
-import { ReactHTMLElement, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 
 
 const store: IBookmarkList[] = [{
@@ -32,29 +32,35 @@ const Panels = () => {
     const [activeEl, setActiveEl] = useState<TfunState>({ el: <StartPanel />, text: 'fa-solid fa-gamepad' })
     const [isClosePanel, setClosePanel] = useState<boolean>(false)
 
-    const panle = useRef<HTMLElement>(null)
+    const panel = useRef<HTMLDivElement>(null)
     type TfunState = {
         el: JSX.Element;
         text: string
     }
 
-    console.log(activeEl.el);
+    const moveFun = (moveEvent: MouseEvent) => {
+        if (!panel.current) return
 
-    const movePanel = (e:React.DragEvent) => {
-        console.log();
-        
+        const x: number = moveEvent.pageX - 650 * 2.68
+        const y: number = moveEvent.pageY - 175
+        panel.current.style.top = `${y}px`
+        panel.current.style.left = `${x}px`
+        document.addEventListener('mouseup', ()=>document.removeEventListener('mousemove', moveFun))
+
     }
 
-    return (
-        <div className={style.zonePalen}>
+    const movePanelDown = () => document.addEventListener('mousemove', moveFun)
 
-            <div className={style.openPanel} style={isClosePanel ? {display:'grid'} : {display:'none'}} onClick={() => setClosePanel(false)} onDrag={movePanel}>
+
+    return (
+        <>
+            <div className={style.openPanel} style={isClosePanel ? { display: 'grid' } : { display: 'none' }} onClick={() => setClosePanel(false)} >
                 <img src='unwrap.svg' />
             </div>
-            <div className={style.panelEl} style={!isClosePanel ? {display:'block'} : {display:'none'}}>
+            <div className={style.panelEl} style={!isClosePanel ? { display: 'block' } : { display: 'none' }} ref={panel} >
                 <div className={style.panelBtn}>
-                    <button className={style.btn}><i className={"fa-solid fa-up-down-left-right " + style.icon} style={{ cursor: 'grab' }}></i></button>
-                    <button className={style.btn}><i className={"fa-solid fa-xmark " + style.icon} onClick={() => setClosePanel(true)} ></i></button>
+                    <button className={style.btn} onMouseDown={movePanelDown}><i className={"fa-solid fa-up-down-left-right " + style.icon} style={{ cursor: 'grab' }} ></i></button>
+                    <button className={style.btn} onClick={() => setClosePanel(true)} ><i className={"fa-solid fa-xmark " + style.icon} ></i></button>
                 </div>
                 <div className={style.panel}>
                     <div className={style.bookmark}>
@@ -73,7 +79,7 @@ const Panels = () => {
 
 
 
-        </div>
+        </>
     )
 }
 

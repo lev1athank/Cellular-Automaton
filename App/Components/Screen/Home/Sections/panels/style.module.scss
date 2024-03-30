@@ -1,111 +1,107 @@
-.zonePalen {
-    width: 100%;
-    height: 100%;
-    position: relative;
+.openPanel {
+    display: none;
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    background-color: #FF9130;
+    border-radius: 9px;
+    margin: 10px;
     top: 0;
-    left: 0;
+    right: 0;
+    z-index: 100;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: transform 0.2s cubic-bezier(0.23, 1, 0.320, 1);
+    animation: spawn;
+    animation-duration: 0.2s;
+    animation-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    animation-fill-mode: forwards;
 
-    .openPanel {
-        display: none;
-        position: fixed;
-        width: 40px;
-        height: 40px;
-        background-color: #FF9130;
-        border-radius: 9px;
-        margin: 10px;
-        top: 0;
-        right: 0;
-        z-index: 100;
-        display: grid;
-        place-items: center;
-        cursor: pointer;
-        transition: transform 0.2s cubic-bezier(0.23, 1, 0.320, 1);
-        animation: spawn;
-        animation-duration: 0.2s;
-        animation-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        animation-fill-mode: forwards;
-        &:hover {
-            transform: scale(1.1);
+    &:hover {
+        transform: scale(1.1);
+    }
+
+}
+
+.panelEl {
+    display: none;
+    position: relative;
+    z-index: 999;
+    width: 650px;
+    height: 500px;
+    z-index: 44;
+
+    animation: spawn;
+    animation-duration: .2s;
+    animation-timing-function: cubic-bezier(0.28, 0.17, 0.95, 1.21);
+    animation-fill-mode: forwards;
+
+    .panelBtn {
+        display: flex;
+        position: absolute;
+        gap: 10px;
+        top: -50px;
+        right: 10px;
+
+        .btn {
+            border: 0;
+            background-color: #FF9130;
+            border-radius: 9px;
+            border: 1px solid #222;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+
+            .icon {
+                font-size: 2rem;
+            }
         }
 
     }
 
-    .panelEl {
-        display: none;
-        position: absolute;
-        z-index: 999;
-        top: 25%;
-        right: 45%;
+    .panel {
+        border-radius: 15px;
+        border: 1px solid #FF9130;
 
-        animation: spawn;
-        animation-duration: .2s;
-        animation-timing-function: cubic-bezier(0.28, 0.17, 0.95, 1.21);
-        animation-fill-mode: forwards;
+        overflow: hidden;
+        display: flex;
+        background-color: #222;
+        position: relative;
 
-        .panelBtn {
-            display: flex;
-            position: absolute;
-            gap: 10px;
-            top: -50px;
-            right: 10px;
 
-            .btn {
-                border: 0;
-                background-color: #FF9130;
-                border-radius: 9px;
-                border: 1px solid #222;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 40px;
-                height: 40px;
-                .icon {
-                    font-size: 2rem;
-                }
-            }
 
-        }
-
-        .panel {
-            border-radius: 15px;
-            border: 1px solid #FF9130;
-            width: 650px;
+        .bookmark {
+            width: 65px;
             height: 500px;
-            overflow: hidden;
             display: flex;
-            align-items: center;
-            background-color: #222;
+            align-items: start;
+            justify-content: space-around;
+            flex-direction: column;
             position: relative;
 
-
-
-            .bookmark {
-                width: 65px;
-                height: 500px;
-                display: flex;
-                align-items: start;
-                justify-content: space-around;
-                flex-direction: column;
-                position: relative;
-
-                &::before {
-                    content: '';
-                    z-index: 1;
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background-color: #313131;
-                    ;
-                }
-            }
-
-            .place {
+            &::before {
+                content: '';
+                z-index: 1;
+                position: absolute;
+                top: 0;
+                left: 0;
                 width: 100%;
-                margin: 0 20px 0 10%;
-                color: #FF9130; //FFDD83
+                height: 100%;
+                background-color: #313131;
+                ;
             }
+        }
+
+        .place {
+            width: 100%;
+            height: 100%;
+            margin: 0 20px 0 10%;
+            color: #FF9130; //FFDD83
+            position: relative;
+            margin-top: 30px;
         }
     }
 }
@@ -114,6 +110,7 @@
     0% {
         transform: scale(0);
     }
+
     100% {
         transform: scale(1);
     }
