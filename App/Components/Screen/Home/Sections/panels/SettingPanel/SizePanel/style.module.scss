@@ -12,6 +12,13 @@
         align-items: center;
         justify-content: start;
         gap: 30px;
+        font-size: 1.4rem;
+        
+        .arrow {
+            z-index: 1;
+            position: absolute;
+            color: #D9D9D9;
+        }
 
         .cell {
             width: 40px;
@@ -23,23 +30,17 @@
             position: relative;
 
             .cellArrowHeight {
-                z-index: 1;
-                position: absolute;
                 height: inherit;
                 top: 40%;
                 right: -15px;
                 font-size: 20px;
-                color: #D9D9D9;
                 transform: scaleY(1.7);
             }
 
             .cellArrowWidth {
-                z-index: 1;
-                position: absolute;
                 height: inherit;
                 bottom: -38px;
                 font-size: 20px;
-                color: #D9D9D9;
                 transform: scaleX(1.7);
             }
 
@@ -50,7 +51,7 @@
                 gap: 5px;
 
                 .inputCell {
-
+                    font-size: 1.2rem;
                     &::-webkit-outer-spin-button,
                     &::-webkit-inner-spin-button {
                         -webkit-appearance: none;
@@ -76,6 +77,48 @@
             background: url('/field.png');
             background-repeat: no-repeat;
             background-size: 100%;
+            position: relative;
+            &::before {
+                content: '';
+                width: 4px;
+                background-color: #D9D9D9;
+                height: 90%;
+                position: absolute;
+                top: 5px;
+                left: -14px;
+            }
+            &::after {
+                content: '';
+                height: 3px;
+                background-color: #D9D9D9;
+                width: 90%;
+                position: absolute;
+                left: 7px;
+                bottom: -13px;
+            }
+
+            .fieldUpHeight {
+                right: 125px;
+                top: 0;
+                font-size: 20px;
+            }
+
+            .fieldDownHeight {
+                right: 125px;
+                bottom: 0;
+                font-size: 20px;
+            }
+            
+            .fieldLeftWidth {
+                left: 0;
+                bottom: -22px;
+                font-size: 20px;
+            }
+            .fieldRightWidth {
+                right: 0;
+                bottom: -22px;
+                font-size: 20px;
+            }
 
         }
     }
