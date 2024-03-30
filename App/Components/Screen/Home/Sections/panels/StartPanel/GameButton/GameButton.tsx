@@ -11,11 +11,11 @@ const GameButton = () => {
             <button className={style.restartANDclear} onClick={() => {
                 dispatch(actions.clear())
                 setIsRun(false)
-            }} ><i className="fa-solid fa-rotate-right"></i></button>
+            }} ><i className={"fa-solid fa-rotate-right " + style.icon}></i></button>
             <button className={style.startANDstop} onClick={() => {
                 setIsRun(prevState => !prevState)
                 dispatch(actions.startOrStop(!isRun))
-            }} >{isRun ? <span>стоп</span> : <span>старт</span>}<i className="fa-solid fa-play"></i></button>
+            }} >{isRun ? <span>стоп</span> : <span>старт</span>}<i className={"fa-solid fa-play " + style.icon}></i></button>
         </div >
     )
 }

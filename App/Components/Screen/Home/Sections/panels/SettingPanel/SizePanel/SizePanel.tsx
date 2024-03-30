@@ -21,9 +21,10 @@ const SizePanel = () => {
             <div className={style.FieldItem}>
                 <span className={style.title}>клетка</span>
                 <div className={style.cell}>
-                    <i className={"fa-solid fa-arrows-up-down " + style.cellArrowHeight}></i>
-                    <i className={"fa-solid fa-arrows-left-right " + style.cellArrowWidth}></i>
-
+                    <i className={"fa-solid fa-arrow-up " + style.fieldUpHeight + " " + style.arrow}></i>
+                    <i className={"fa-solid fa-arrow-down " + style.fieldDownHeight + " " + style.arrow}></i>
+                    <i className={"fa-solid fa-arrow-left " + style.fieldLeftWidth + " " + style.arrow}></i>
+                    <i className={"fa-solid fa-arrow-right " + style.fieldRightWidth + " " + style.arrow}></i>
                     <div className={style.inputField}>
                         <input type="number" className={style.inputCell} defaultValue={15} onChange={setValue} />
                         <span>px</span>
@@ -35,13 +36,12 @@ const SizePanel = () => {
                 <span className={style.title}>поле</span>
                 <div className={style.field}>
                     <i className={"fa-solid fa-arrow-up " + style.fieldUpHeight + " " + style.arrow}></i>
-                    <i className={"fa-solid fa-arrow-down "  + style.fieldDownHeight + " " + style.arrow}></i>
+                    <i className={"fa-solid fa-arrow-down " + style.fieldDownHeight + " " + style.arrow}></i>
                     <i className={"fa-solid fa-arrow-left " + style.fieldLeftWidth + " " + style.arrow}></i>
                     <i className={"fa-solid fa-arrow-right " + style.fieldRightWidth + " " + style.arrow}></i>
-                {/* <i className={"fa-solid fa-arrows-left-right " + style.fieldArrowWidth}></i> */}
 
+                </div>
             </div>
-        </div>
         </div >
     )
 }

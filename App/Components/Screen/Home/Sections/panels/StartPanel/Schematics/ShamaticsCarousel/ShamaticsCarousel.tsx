@@ -19,11 +19,11 @@ const ShamaticsCarousel = () => {
 
     return (
         <>
-            <i className="fa-solid fa-caret-left" onClick={() => pagePrints != 0 ? movePage(-1): ""}></i>
+            <i className={"fa-solid fa-caret-left " + style.icon} onClick={() => pagePrints != 0 ? movePage(-1): ""}></i>
             <div className={style.schemes}>
                 {dataPrints.slice(pagePrints * 3, pagePrints * 3 + 3).map((el, i) => <Scheme id={el.id-1} key={i.toString()} />)}
             </div>
-            <i className="fa-solid fa-caret-right" onClick={() => pagePrints != maxPage ? movePage(1): ""}></i>
+            <i className={"fa-solid fa-caret-right " + style.icon} onClick={() => pagePrints != maxPage ? movePage(1): ""}></i>
         </>
     )
 }
