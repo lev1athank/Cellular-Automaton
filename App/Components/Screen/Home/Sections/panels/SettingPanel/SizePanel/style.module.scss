@@ -79,19 +79,7 @@
 
                 .inputCell {
                     font-size: 1.2rem;
-                    &::-webkit-outer-spin-button,
-                    &::-webkit-inner-spin-button {
-                        -webkit-appearance: none;
-                    }
-
-                    &:focus,
-                    &:active {
-                        outline: 0;
-                        outline-offset: 0;
-                    }
-
                     background-color: #222;
-                    border: none;
                     width: 40px;
                 }
             }
@@ -107,6 +95,7 @@
             position: relative;
             &::before {
                 content: '';
+                z-index: 1;
                 width: 4px;
                 background-color: #D9D9D9;
                 height: 90%;
@@ -117,6 +106,7 @@
             &::after {
                 content: '';
                 height: 3px;
+                z-index: 1;
                 background-color: #D9D9D9;
                 width: 90%;
                 position: absolute;
@@ -145,6 +135,23 @@
                 right: 0;
                 bottom: -22px;
                 font-size: 20px;
+            }
+
+            .inputFieldLeft {
+                z-index: 2;
+                position: absolute;
+                width: 20px;
+                max-width: 20px;
+                overflow: hidden;
+                max-height: 50px;
+                border: none;
+                height: 50px;
+                resize: none;
+                grid-row: auto;
+                background-color: #222;
+                top: 27%;
+                padding: 5px;
+                left: -30px;
             }
 
         }

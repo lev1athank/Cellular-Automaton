@@ -2,15 +2,15 @@ import { ChangeEvent } from 'react';
 import style from './style.module.scss'
 const SizePanel = () => {
 
-    const setValue = (el: ChangeEvent) => {
+    const setValue = (el: ChangeEvent, maxNumber: number) => {
         const targetEl: HTMLInputElement = el.target as HTMLInputElement
         console.log(targetEl.value.split('').slice(0, 2));
 
         const value = targetEl.value
         if (value.length > 2)
             targetEl.value = targetEl.value.split('').slice(0, 2).join('')
-        else if (+value > 30) {
-            targetEl.value = "30"
+        else if (+value > maxNumber) {
+            targetEl.value = maxNumber.toString()
         }
 
     }
@@ -26,7 +26,7 @@ const SizePanel = () => {
                     <i className={"fa-solid fa-arrow-left " + style.fieldLeftWidth + " " + style.arrow}></i>
                     <i className={"fa-solid fa-arrow-right " + style.fieldRightWidth + " " + style.arrow}></i>
                     <div className={style.inputField}>
-                        <input type="number" className={style.inputCell} defaultValue={15} onChange={setValue} />
+                        <input type="number" className={style.inputCell} defaultValue={15} onChange={(el) => setValue(el, 30)} />
                         <span>px</span>
                     </div>
                 </div>
@@ -37,8 +37,10 @@ const SizePanel = () => {
                 <div className={style.field}>
                     <i className={"fa-solid fa-arrow-up " + style.fieldUpHeight + " " + style.arrow}></i>
                     <i className={"fa-solid fa-arrow-down " + style.fieldDownHeight + " " + style.arrow}></i>
+                    <textarea className={style.inputFieldLeft} defaultValue={15} onChange={(el) => setValue(el, 50)} />
                     <i className={"fa-solid fa-arrow-left " + style.fieldLeftWidth + " " + style.arrow}></i>
                     <i className={"fa-solid fa-arrow-right " + style.fieldRightWidth + " " + style.arrow}></i>
+                    {/* <input type="number" className={style.inputFieldDown} defaultValue={15} onChange={(el) => setValue(el, 30)} /> */}
 
                 </div>
             </div>
