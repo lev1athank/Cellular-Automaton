@@ -140,18 +140,14 @@
             .inputFieldLeft {
                 z-index: 2;
                 position: absolute;
-                width: 20px;
-                max-width: 20px;
-                overflow: hidden;
-                max-height: 50px;
+                font-size: 1.4rem;
+                width: 60px;
                 border: none;
-                height: 50px;
-                resize: none;
-                grid-row: auto;
+                height: 20px;
                 background-color: #222;
-                top: 27%;
-                padding: 5px;
-                left: -30px;
+                top: 35%;
+                left: -70px;
+                transform: rotate(-90deg);
             }
 
         }

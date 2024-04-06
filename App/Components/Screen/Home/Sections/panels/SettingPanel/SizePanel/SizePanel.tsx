@@ -4,9 +4,10 @@ const SizePanel = () => {
 
     const setValue = (el: ChangeEvent, maxNumber: number) => {
         const targetEl: HTMLInputElement = el.target as HTMLInputElement
-        console.log(targetEl.value.split('').slice(0, 2));
+        console.log(el.nativeEvent?.data);
 
         const value = targetEl.value
+        if(value)
         if (value.length > 2)
             targetEl.value = targetEl.value.split('').slice(0, 2).join('')
         else if (+value > maxNumber) {
@@ -37,7 +38,7 @@ const SizePanel = () => {
                 <div className={style.field}>
                     <i className={"fa-solid fa-arrow-up " + style.fieldUpHeight + " " + style.arrow}></i>
                     <i className={"fa-solid fa-arrow-down " + style.fieldDownHeight + " " + style.arrow}></i>
-                    <textarea className={style.inputFieldLeft} defaultValue={15} onChange={(el) => setValue(el, 50)} />
+                    <input className={style.inputFieldLeft} defaultValue={15} onChange={(el) => setValue(el, 50)} />
                     <i className={"fa-solid fa-arrow-left " + style.fieldLeftWidth + " " + style.arrow}></i>
                     <i className={"fa-solid fa-arrow-right " + style.fieldRightWidth + " " + style.arrow}></i>
                     {/* <input type="number" className={style.inputFieldDown} defaultValue={15} onChange={(el) => setValue(el, 30)} /> */}
