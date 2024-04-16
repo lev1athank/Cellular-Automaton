@@ -8,6 +8,7 @@ const initialState: IGameState = {
     GameClass: null,
     activePrint: null,
     liveCount: 0,
+    isRun: false
 }
 
 
@@ -20,7 +21,7 @@ export const settingsSlice = createSlice({
         },
 
         startOrStop: (state, { payload: isRun }: PayloadAction<boolean>) => {
-
+            state.isRun = isRun
             isRun ? state.GameClass?.start() : state.GameClass?.restart(true)
         },
 
@@ -43,7 +44,12 @@ export const settingsSlice = createSlice({
             }
         },
 
-
+        setPix: (state, { payload: width }: PayloadAction<number>) => {
+            state.GameClass?.setSizePix(width)
+        },
+        setFieldSize: (state, { payload }: PayloadAction<{width?: number, height?: number}>) => {
+            state.GameClass?.setFieldSize(payload)
+        },
 
 
     },

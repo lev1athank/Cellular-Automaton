@@ -3,7 +3,7 @@ export interface IGameState {
     GameClass: CanvasClass | null,
     activePrint: IPrintData | null,
     liveCount: number,
-    
+    isRun: boolean
 
 }
 

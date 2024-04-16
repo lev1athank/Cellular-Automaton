@@ -2,10 +2,11 @@ import { useEffect, useRef, useState } from 'react'
 import style from './style.module.scss'
 import { useDispatch } from 'react-redux'
 import { actions } from '../../../../../../../../src/store/GameSettings/GameSettings.slice'
+import { settings } from '../../../../../../../../src/store/settingCanvas/settingCanvas'
 
 const SpeedRange = () => {
     let input = useRef<HTMLInputElement>(null)
-    const [speed, setSpeed] = useState("1")
+    const [speed, setSpeed] = useState(settings.timeUp.toString())
     const dispatch =  useDispatch()
 
     const setAttrToRange = (curInput: HTMLInputElement) => {
@@ -31,7 +32,7 @@ const SpeedRange = () => {
             <span className={style.title}>Скорость</span>
             <input type="range" min={1} max={10} defaultValue={speed} ref={input} />
             <div className={style.speedLine}>
-                {input.current?.value ? <span className={style.speedCount} style={{ transform: `translateX(${parseInt(input.current.value) * 70}%)` }}>{input.current?.value}</span> : <span className={style.speedCount} style={{ transform: `translateX(10%)` }}>1</span>}
+               <span className={style.speedCount} style={{ transform: `translateX(${(+speed-0.5) * 70}%)` }}>{+speed * (settings.rules.fastSpeed ? 2 : 1)}</span>
             </div>
         </div>
     )

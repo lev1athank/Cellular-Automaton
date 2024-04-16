@@ -2,8 +2,9 @@ import { useDispatch } from 'react-redux'
 import style from './style.module.scss'
 import { useState } from 'react'
 import { actions } from '../../../../../../../../src/store/GameSettings/GameSettings.slice'
+import { settings } from '../../../../../../../../src/store/settingCanvas/settingCanvas'
 const GameButton = () => {
-    const [isRun, setIsRun] = useState(false)
+    const [isRun, setIsRun] = useState(settings.isRun)
     const dispatch = useDispatch()
 
     return (

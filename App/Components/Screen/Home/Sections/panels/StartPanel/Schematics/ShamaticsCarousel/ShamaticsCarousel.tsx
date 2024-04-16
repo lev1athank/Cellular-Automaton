@@ -5,18 +5,10 @@ import { dataPrints } from '../../../../../../../../../src/store/GameSettings/Da
 const ShamaticsCarousel = () => {
     const [pagePrints, setPagePrints] = useState(0)
     const maxPage = Math.ceil(dataPrints.length / 3)-1
-    console.log(maxPage);
-
     const movePage = (move: number): void => {
-
-        console.log(move);
-
         setPagePrints(state=>state+move)
     }
     
-    console.log(dataPrints.slice(pagePrints * 3, pagePrints * 3 + 3));
-    
-
     return (
         <>
             <i className={"fa-solid fa-caret-left " + style.icon} onClick={() => pagePrints != 0 ? movePage(-1): ""}></i>

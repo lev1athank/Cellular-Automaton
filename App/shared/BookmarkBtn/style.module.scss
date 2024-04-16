@@ -11,6 +11,12 @@
     display: grid;
     place-items: center;
     font-size: 1.2rem;
+    border: 0;
+
+    &.running {
+        background-color: #303030;
+        cursor: not-allowed;
+    }
 
     .icon {
         position: absolute;

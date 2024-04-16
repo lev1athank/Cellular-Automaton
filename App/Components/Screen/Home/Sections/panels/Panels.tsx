@@ -28,7 +28,6 @@ const store: IBookmarkList[] = [{
 
 const Panels = () => {
 
-
     const [activeEl, setActiveEl] = useState<TfunState>({ el: <StartPanel />, text: 'fa-solid fa-gamepad' })
     const [isClosePanel, setClosePanel] = useState<boolean>(false)
 
@@ -45,7 +44,7 @@ const Panels = () => {
         const y: number = moveEvent.pageY - 175
         panel.current.style.top = `${y}px`
         panel.current.style.left = `${x}px`
-        document.addEventListener('mouseup', ()=>document.removeEventListener('mousemove', moveFun))
+        document.addEventListener('mouseup', () => document.removeEventListener('mousemove', moveFun))
 
     }
 
