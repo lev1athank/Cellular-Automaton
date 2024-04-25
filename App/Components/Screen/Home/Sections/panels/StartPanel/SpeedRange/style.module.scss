@@ -33,7 +33,7 @@
             width: 2em;
             height: 2em;
             border-radius: 1em;
-            background: radial-gradient(#3A3A3A 50%, #FF9130 50%);
+            background: radial-gradient(#3A3A3A 50%, var(--orange) 50%);
             border: none;
             box-shadow: 0 0 2px black;
             margin-top: calc(max((1em - 1px - 1px) * 0.5, 0px) - 2em * 0.5);
@@ -46,34 +46,34 @@
             height: 1em;
             border: 1px solid #3A3A3A;
             border-radius: 0.5em;
-            background: #FF9130;
+            background: var(--orange);
             box-shadow: none;
         }
 
         &:hover::-webkit-slider-runnable-track {
-            background: #FF9130;
+            background: var(--orange);
             border-color: #3A3A3A;
         }
 
         &::-webkit-slider-thumb:active {
-            background: radial-gradient(#3A3A3A 50%, #FF9130 50%);
+            background: radial-gradient(#3A3A3A 50%, var(--orange) 50%);
         }
 
         &:active::-webkit-slider-runnable-track {
-            background: #FF9130;
+            background: var(--orange);
             border-color: #3A3A3A;
         }
 
         &::-webkit-slider-runnable-track {
-            background: linear-gradient(#FF9130, #FF9130) 0/var(--sx) 100% no-repeat, #D9D9D9;
+            background: linear-gradient(var(--orange), var(--orange)) 0/var(--sx) 100% no-repeat, var(--white);
         }
 
         &:hover::-webkit-slider-runnable-track {
-            background: linear-gradient(#FF9130, #FF9130) 0/var(--sx) 100% no-repeat, #D9D9D9;
+            background: linear-gradient(var(--orange), var(--orange)) 0/var(--sx) 100% no-repeat, var(--white);
         }
 
         &:active::-webkit-slider-runnable-track {
-            background: linear-gradient(#FF9130, #FF9130) 0/var(--sx) 100% no-repeat, #D9D9D9;
+            background: linear-gradient(var(--orange), var(--orange)) 0/var(--sx) 100% no-repeat, var(--white);
         }
 
     }

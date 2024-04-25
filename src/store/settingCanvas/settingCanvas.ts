@@ -19,5 +19,12 @@ export const settings: ICanvas = {
     rules: {
         noEdges: false,
         fastSpeed: false
-    }
+    },
+    colorsPix: [
+        {
+            neighbors: 1,
+            rgb: '#000000'
+        },
+    ],
+    activeNeighbors: []
 }

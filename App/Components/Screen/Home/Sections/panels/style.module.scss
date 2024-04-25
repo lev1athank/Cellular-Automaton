@@ -3,7 +3,7 @@
     position: fixed;
     width: 40px;
     height: 40px;
-    background-color: #FF9130;
+    background-color: var(--orange);
     border-radius: 9px;
     margin: 10px;
     top: 0;
@@ -46,7 +46,7 @@
 
         .btn {
             border: 0;
-            background-color: #FF9130;
+            background-color: var(--orange);
             border-radius: 9px;
             border: 1px solid #222;
             display: flex;
@@ -64,7 +64,7 @@
 
     .panel {
         border-radius: 15px;
-        border: 1px solid #FF9130;
+        border: 1px solid var(--orange);
 
         overflow: hidden;
         display: flex;
@@ -99,7 +99,7 @@
             width: 100%;
             height: 100%;
             margin: 0 20px 0 10%;
-            color: #FF9130; //FFDD83
+            color: var(--orange); //FFDD83
             position: relative;
             margin-top: 30px;
         }

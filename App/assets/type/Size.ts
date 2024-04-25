@@ -4,3 +4,8 @@ export type Tsize = {
     width?: number,
     height?: number
 }
+
+export type TlistPix = {
+    neighbors: number,
+    id: number
+}

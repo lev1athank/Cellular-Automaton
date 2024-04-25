@@ -31,8 +31,6 @@ const FurtherSettings = () => {
       isActive: settings.rules.fastSpeed
     }
   ]
-  console.log(settings.rules);
-  console.log(style.active);
   return (
     <>
       <div className={style.furtherSettings}>

@@ -1,6 +1,6 @@
 import { IPrintData } from '../interface/GameState.interface'
 import { settings } from '../../../src/store/settingCanvas/settingCanvas'
-import { Tsize } from './../type/Size'
+import { TlistPix, Tsize } from './../type/Size'
 
 export class CanvasClass {
 
@@ -10,9 +10,10 @@ export class CanvasClass {
 
     private isMove: boolean = false
 
+
     private dataPix: number[] = new Array(settings.width * settings.height).fill(0)
-    private livePix: number[] = []
-    private deadPix: number[] = []
+    private livePix: TlistPix[] = []
+    private deadPix: TlistPix[] = []
     private liveCount: number = 0
     private activePrint: IPrintData | null = null
 
@@ -34,7 +35,7 @@ export class CanvasClass {
             if (settings.isRun) return
             if (!settings.isPrint && this.isMove) {
                 if (mouse.which == 1)
-                    this.drawPix(mouse.offsetX, mouse.offsetY, true)
+                    this.drawPix(mouse.offsetX, mouse.offsetY, 0, true)
                 else {
                     this.delete({ x: mouse.offsetX, y: mouse.offsetY })
                     this.drawMesh()
@@ -63,7 +64,7 @@ export class CanvasClass {
             if (settings.isPrint)
                 this.drawPrint(mouse.offsetX, mouse.offsetY)
             else
-                this.drawPix(mouse.offsetX, mouse.offsetY, true)
+                this.drawPix(mouse.offsetX, mouse.offsetY, 0, true)
         })
     }
 
@@ -80,9 +81,14 @@ export class CanvasClass {
         this.drawMesh()
     }
 
-    private drawPix(x: number, y: number, isSave?: boolean): void {
+    private drawPix(x: number, y: number, neighbors: number, isSave?: boolean): void {
+
 
         this.ctx.beginPath()
+        const rgb: string | undefined = settings.colorsPix.find(el => el.neighbors == neighbors)?.rgb
+
+        this.ctx.fillStyle = rgb == undefined ? settings.colorsPix[0].rgb : rgb
+
         this.ctx.fillRect(x - x % settings.sizePix, y - y % settings.sizePix, settings.sizePix, settings.sizePix)
         this.ctx.stroke()
 
@@ -100,7 +106,7 @@ export class CanvasClass {
         for (let pixY = this.activePrint?.height; pixY--;)
             for (let pixX = this.activePrint?.width; pixX--;) {
                 if (this.activePrint.print[pixX + pixY * this.activePrint.width]) {
-                    this.drawPix(((x - x % settings.sizePix) + pixX * settings.sizePix), ((y - y % settings.sizePix) + pixY * settings.sizePix))
+                    this.drawPix(((x - x % settings.sizePix) + pixX * settings.sizePix), ((y - y % settings.sizePix) + pixY * settings.sizePix), 0, false)
                 }
             }
 
@@ -112,11 +118,9 @@ export class CanvasClass {
         for (let pixY = this.activePrint?.height; pixY--;)
             for (let pixX = this.activePrint?.width; pixX--;) {
                 if (this.activePrint.print[pixX + pixY * this.activePrint.width]) {
-                    this.drawPix(((x - x % settings.sizePix) + pixX * settings.sizePix), ((y - y % settings.sizePix) + pixY * settings.sizePix), true)
+                    this.drawPix(((x - x % settings.sizePix) + pixX * settings.sizePix), ((y - y % settings.sizePix) + pixY * settings.sizePix), 0, true)
                 }
             }
-        // this.backupDataPix = this.dataPix.slice()
-
     }
 
     private setBgColor(rgb: string) {
@@ -145,7 +149,7 @@ export class CanvasClass {
         this.updateSizeCanvas()
         this.drawMesh()
     }
-    public setFieldSize(size:{width?: number, height?: number}): void {
+    public setFieldSize(size: { width?: number, height?: number }): void {
         settings.width = size.width || settings.width
         settings.height = size.height || settings.height
         this.updateSizeCanvas()
@@ -161,14 +165,15 @@ export class CanvasClass {
     }
 
     private recalculation(): void {
+
         for (let live = this.livePix.length; live--;) {
-            this.dataPix[this.livePix[live]] = 1
+            this.dataPix[this.livePix[live].id] = this.livePix[live].neighbors
         }
         for (let dead = this.deadPix.length; dead--;) {
-            this.dataPix[this.deadPix[dead]] = 0
+            this.dataPix[this.deadPix[dead].id] = 0
         }
 
-        this.deadPix = new Array(settings.width * settings.height).fill(0)
+        this.deadPix = []
         this.livePix = []
     }
 
@@ -185,14 +190,25 @@ export class CanvasClass {
             if (this.dataPix[i - settings.width - 1]) neighbors++
             if (this.dataPix[i - settings.width + 1]) neighbors++
 
-            if (!settings.emerges.indexOf(neighbors) && this.dataPix[i] == 0)
-                this.livePix.push(i)
 
+            if (settings.emerges.indexOf(neighbors) !== -1 && this.dataPix[i] == 0)
+                this.livePix.push({
+                    id: i,
+                    neighbors: neighbors
+                })
             else if (settings.survives.indexOf(neighbors) == -1 && this.dataPix[i] > 0)
-                this.deadPix.push(i)
-
+                this.deadPix.push({
+                    id: i,
+                    neighbors: neighbors
+                })
+            else if (settings.survives.indexOf(neighbors) !== -1 && this.dataPix[i] > 0) {
+                console.log(i, neighbors);
+                
+                this.dataPix[i] = neighbors
+            }
 
         }
+
         this.recalculation()
         this.delete({ x: 0, y: 0, width: settings.width * settings.sizePix, height: settings.height * settings.sizePix })
         this.renderCanvas()
@@ -217,9 +233,9 @@ export class CanvasClass {
 
     private renderCanvas(): void {
         for (let i = this.dataPix.length; i--;) {
-
             if (this.dataPix[i])
-                this.drawPix(i % settings.width * settings.sizePix, Math.floor(i / settings.width) * settings.sizePix)
+                this.drawPix(i % settings.width * settings.sizePix, Math.floor(i / settings.width) * settings.sizePix, this.dataPix[i], false)
+
         }
     }
 
@@ -263,8 +279,28 @@ export class CanvasClass {
         }, 1000 / (settings.timeUp * (settings.rules.fastSpeed ? 2 : 1)))
     }
 
+    private randomPixId(): number {
+        const id: number = Math.floor(Math.random() * this.dataPix.length)
 
+        if (this.dataPix[id] > 0)
+            return this.randomPixId()
+        else
+            return id
+    }
 
+    public fill(percentage: number): void {
+        this.delete({ x: 0, y: 0, width: settings.width * settings.sizePix, height: settings.height * settings.sizePix })
+        this.dataPix = new Array(settings.width * settings.height).fill(0)
+
+        const percent: number = Math.floor(this.dataPix.length / 100 * percentage)
+
+        for (let count = percent; count--;) {
+            this.dataPix[this.randomPixId()] = 1
+
+        }
+        this.renderCanvas()
+        this.drawMesh()
+    }
 
 
 }

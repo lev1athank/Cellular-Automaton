@@ -22,9 +22,8 @@
         position: absolute;
         z-index: 12;
         font-size: 2.5rem;
-        color: #FF9130;
+        color: var(--orange);
         transition: color 0.5s cubic-bezier(0.23, 1, 0.320, 1);
-
     }
 
     &::after {
@@ -35,7 +34,7 @@
         z-index: 10;
         top: 0;
         right: 0;
-        background-color: #FF9130;
+        background-color: var(--orange);
         transition: width .2s cubic-bezier(0.455, 0.03, 0.515, 0.955);
     }
 

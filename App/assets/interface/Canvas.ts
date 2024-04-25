@@ -1,3 +1,8 @@
+type Tcolor = {
+    neighbors: number,
+    rgb: string
+}
+
 export interface ICanvas {
     width: number,
     height: number,
@@ -13,5 +18,7 @@ export interface ICanvas {
     rules: {
         noEdges: boolean,
         fastSpeed: boolean
-    }
+    },
+    colorsPix: Tcolor[],
+    activeNeighbors: number[]
 }

@@ -32,7 +32,7 @@ const SpeedRange = () => {
             <span className={style.title}>Скорость</span>
             <input type="range" min={1} max={10} defaultValue={speed} ref={input} />
             <div className={style.speedLine}>
-               <span className={style.speedCount} style={{ transform: `translateX(${(+speed-0.5) * 70}%)` }}>{+speed * (settings.rules.fastSpeed ? 2 : 1)}</span>
+               <div className={style.speedCount} style={{ transform: `translateX(${(+speed-0.5) * 70}%)` }}>{+speed * (settings.rules.fastSpeed ? 2 : 1)}</div>
             </div>
         </div>
     )

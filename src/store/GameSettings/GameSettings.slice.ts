@@ -51,6 +51,9 @@ export const settingsSlice = createSlice({
             state.GameClass?.setFieldSize(payload)
         },
 
+        fill: (state, {payload: percentage}: PayloadAction<number>) => {
+            state.GameClass?.fill(percentage)
+        }
 
     },
 })

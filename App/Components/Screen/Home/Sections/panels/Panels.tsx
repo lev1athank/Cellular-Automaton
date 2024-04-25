@@ -1,7 +1,7 @@
 import StartPanel from './StartPanel/StartPanel'
 import SettingPanel from './SettingPanel/SettingPanel'
 import RulesPanel from './RulesPanel/RulesPanel'
-import ColorPanel from './ColorPanel/ColorPanel'
+import QuestionPanel from './QuestionPanel/QuestionPanel'
 import style from './style.module.scss'
 import { IBookmarkList } from './../../../../../assets/interface/BookmarkBtn'
 import BookmarkBtn from './../../../../../shared/BookmarkBtn/BookmarkBtn'
@@ -21,8 +21,8 @@ const store: IBookmarkList[] = [{
     element: <RulesPanel />,
 },
 {
-    text: "fa-solid fa-palette",
-    element: <ColorPanel />,
+    text: "fa-solid fa-question",
+    element: <QuestionPanel />,
 },]
 
 
