@@ -190,24 +190,32 @@ export class CanvasClass {
             if (this.dataPix[i - settings.width - 1]) neighbors++
             if (this.dataPix[i - settings.width + 1]) neighbors++
 
-
             if (settings.emerges.indexOf(neighbors) !== -1 && this.dataPix[i] == 0)
                 this.livePix.push({
                     id: i,
-                    neighbors: neighbors
+                    neighbors: neighbors == 0 ? -1 : neighbors,
                 })
-            else if (settings.survives.indexOf(neighbors) == -1 && this.dataPix[i] > 0)
+            else if (settings.survives.indexOf(neighbors) == -1 && this.dataPix[i] !== 0)
                 this.deadPix.push({
                     id: i,
-                    neighbors: neighbors
+                    neighbors: neighbors,
+
                 })
-            else if (settings.survives.indexOf(neighbors) !== -1 && this.dataPix[i] > 0) {
+            else if (settings.survives.indexOf(neighbors) !== -1 && this.dataPix[i] !== 0) {
                 console.log(i, neighbors);
-                
-                this.dataPix[i] = neighbors
+
+                this.dataPix[i] = neighbors == 0 ? -1 : neighbors
             }
 
         }
+        console.log(settings.colorsPix);
+        
+        this.dataPix.forEach(el => {
+
+            if (el !== 0)
+                console.log(el);
+        }
+        )
 
         this.recalculation()
         this.delete({ x: 0, y: 0, width: settings.width * settings.sizePix, height: settings.height * settings.sizePix })

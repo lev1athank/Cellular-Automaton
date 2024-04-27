@@ -15,7 +15,6 @@
             border: 1px solid black;
             outline: none;
             border-radius: 19px;
-            cursor: pointer;
 
             &[type="color"] {
                 padding: 0;
@@ -40,7 +39,6 @@
                 align-items: center;
                 width: 25px;
                 height: 25px;
-                cursor: pointer;
 
                 &.active {
                     background-color: var(--orange);

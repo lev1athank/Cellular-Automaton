@@ -58,7 +58,7 @@ const Panels = () => {
             </div>
             <div className={style.panelEl} style={!isClosePanel ? { display: 'block' } : { display: 'none' }} ref={panel} >
                 <div className={style.panelBtn}>
-                    <button className={style.btn} onMouseDown={movePanelDown}><i className={"fa-solid fa-up-down-left-right " + style.icon} style={{ cursor: 'grab' }} ></i></button>
+                    <button className={style.btn} onMouseDown={movePanelDown}><i className={"fa-solid fa-up-down-left-right " + style.icon} ></i></button>
                     <button className={style.btn} onClick={() => setClosePanel(true)} ><i className={"fa-solid fa-xmark " + style.icon} ></i></button>
                 </div>
                 <div className={style.panel}>

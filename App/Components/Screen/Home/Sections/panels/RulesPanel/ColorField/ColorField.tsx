@@ -13,8 +13,9 @@ const ColorField = () => {
 	const usingNeighbor: number[] = settings.colorsPix.map(el => el.neighbors)
 
 
-	for (let i = 0; i < 9; i++) {
-		if (usingNeighbor.indexOf(i) == -1)
+	for (let i = -1; i < 9; i++) {
+		
+		if (usingNeighbor.indexOf(i) == -1 && i !==0)
 			freeNeighbor.push(i)
 
 	}
@@ -32,34 +33,34 @@ const ColorField = () => {
 			neighbors: freeNeighbor[0],
 			rgb: `#${rgbHex(random(), random(), random())}`
 		})
-		console.log(idNewColor - 1);
-
 		setActiveColor(idNewColor - 1)
 	}
 
 	const editColor = (neighbors: number, color: string) => {
+		
 		settings.colorsPix[activeColor] = {
 			neighbors: neighbors,
 			rgb: color
 		}
 		update()
 	}
+
 	const deleteColor = () => {
 		if (settings.colorsPix.length == 1) return
-		
+
 		let move: number = -1
-		
+
 		activeColor - 1 < 0 ? move = 0 : move = -1
 		settings.colorsPix.splice(activeColor, 1)
-		
-		setActiveColor(state=>state + move)
+
+		setActiveColor(state => state + move)
 		update()
 	}
 
 	return (
 		<div className={style.colorField}>
 			<div className={style.colorsLine}>
-				{settings.colorsPix.map((el, i) => <span className={style.color + (activeColor == i ? ' ' + style.active : '')} style={{ backgroundColor: el.rgb }} key={i} onClick={() => colorFocus(i)} ><span className={style.neighbors}>{el.neighbors}</span></span>)}
+				{settings.colorsPix.map((el, i) => <span className={style.color + (activeColor == i ? ' ' + style.active : '')} style={{ backgroundColor: el.rgb }} key={i} onClick={() => colorFocus(i)} ><span className={style.neighbors}>{el.neighbors == -1 ? 0: el.neighbors}</span></span>)}
 				{settings.colorsPix.length < 9 ? <i className={"fa-solid fa-plus " + style.addColor} onClick={newColor}></i> : ""}
 			</div>
 

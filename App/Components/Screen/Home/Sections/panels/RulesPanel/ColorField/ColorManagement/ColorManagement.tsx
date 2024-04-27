@@ -26,7 +26,7 @@ const ColorManagement = ({ id, createColor, deleteColor }: promp) => {
     }, [curId])
 
 
-    const freeNeighbor: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+    const freeNeighbor: number[] = [-1, 1, 2, 3, 4, 5, 6, 7, 8]
     let usingNeighbor: number[] = []
 
 
@@ -59,7 +59,7 @@ const ColorManagement = ({ id, createColor, deleteColor }: promp) => {
                     gridTemplateRows: `repeat(${row}, 1fr)`
                 }}>
                     {
-                        freeNeighbor.map(value => usingNeighbor.indexOf(value) == -1 ? <span className={style.cellNeighbor + (value == activeNeighbor ? " " + style.active : '')} onClick={() => setActiveNeighbor(value)} key={value}>{value}</span> : '')
+                        freeNeighbor.map(value => usingNeighbor.indexOf(value) == -1 ? <span className={style.cellNeighbor + (value == activeNeighbor ? " " + style.active : '')} onClick={() => setActiveNeighbor(value)} key={value}>{value == -1 ? 0 : value}</span> : '')
                     }
                 </div>
             </div>
