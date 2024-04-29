@@ -20,8 +20,6 @@ const RulesPanel = () => {
 	let list: number[] = []
 	const random = (): any => {
 		const randomFigures = Math.floor(Math.random() * 9)
-		console.log(randomFigures);
-		console.log(list.indexOf(randomFigures) == -1);
 		
 		if (list.indexOf(randomFigures) != -1)
 			return random()

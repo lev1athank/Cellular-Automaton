@@ -202,20 +202,11 @@ export class CanvasClass {
 
                 })
             else if (settings.survives.indexOf(neighbors) !== -1 && this.dataPix[i] !== 0) {
-                console.log(i, neighbors);
 
                 this.dataPix[i] = neighbors == 0 ? -1 : neighbors
             }
 
         }
-        console.log(settings.colorsPix);
-        
-        this.dataPix.forEach(el => {
-
-            if (el !== 0)
-                console.log(el);
-        }
-        )
 
         this.recalculation()
         this.delete({ x: 0, y: 0, width: settings.width * settings.sizePix, height: settings.height * settings.sizePix })
