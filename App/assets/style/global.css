@@ -124,6 +124,6 @@ button:disabled > *{
 }
 
 
-button:disabled > *{
-    cursor: url("/cursors/pointer.svg") 16 16, default;
+a {
+    cursor: url("/cursors/pointer.svg") 10 0, grab;
 }

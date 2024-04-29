@@ -59,7 +59,10 @@ const Canvas = () => {
             {
                 !isRun ?
                     <div className={style.fillField}>
-                        <input type="number" defaultValue={percentage} className={style.inputFill} onClick={(el) => el.target.select()} onChange={(el) => setValue(el.target, 0, 100)} /> %
+                        <input type="number" defaultValue={percentage} className={style.inputFill} onClick={(el) => {
+                            const a = el.target as HTMLInputElement
+                            a.select()
+                            }} onChange={(el) => setValue(el.target, 0, 100)} /> %
                         <button className={style.btnFill} onClick={fillIn}>заполнить</button>
                     </div> : ""
             }

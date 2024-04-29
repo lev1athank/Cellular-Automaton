@@ -1,5 +1,5 @@
 import { IGameState } from './../../../App/assets/interface/GameState.interface';
-import { createSlice, isAction } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { CanvasClass } from '../../../App/assets/class/CanvasClass'
 import { dataPrints } from './DataPrints';

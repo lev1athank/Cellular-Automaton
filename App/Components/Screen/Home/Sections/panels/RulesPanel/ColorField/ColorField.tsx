@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import style from './style.module.scss'
 import { settings } from '../../../../../../../../src/store/settingCanvas/settingCanvas';
 import ColorManagement from './ColorManagement/ColorManagement'
@@ -25,7 +25,7 @@ const ColorField = () => {
 		setActiveColor(id)
 	}
 
-	const update = () => setupdata(state => state + 1)
+	const update = () => setupdata(state => state + 1 + updataFiel * 0)	
 
 	const newColor = () => {
 		const random = (): number => Math.round(Math.random() * 255)

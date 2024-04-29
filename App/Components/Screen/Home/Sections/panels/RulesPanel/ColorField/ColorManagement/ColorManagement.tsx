@@ -1,6 +1,6 @@
 import style from './style.module.scss'
 import { settings } from '../../../../../../../../../src/store/settingCanvas/settingCanvas';
-import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 type promp = {
     id: number,
     createColor: (neighbors: number, color: string) => void,

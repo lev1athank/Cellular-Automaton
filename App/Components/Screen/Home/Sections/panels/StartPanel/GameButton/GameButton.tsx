@@ -12,6 +12,7 @@ const GameButton = () => {
             <button className={style.restartANDclear} onClick={() => {
                 dispatch(actions.clear())
                 setIsRun(false)
+                dispatch(actions.startOrStop(false))
             }} ><i className={"fa-solid fa-rotate-right " + style.icon}></i></button>
             <button className={style.startANDstop} onClick={() => {
                 setIsRun(prevState => !prevState)

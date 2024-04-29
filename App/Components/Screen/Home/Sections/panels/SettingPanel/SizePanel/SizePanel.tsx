@@ -11,14 +11,14 @@ const SizePanel = () => {
 
         const value = targetEl.value
         if (isFinite(+value) && value)
-            if (+value > 0 && +value < 100 )
+            if (+value > 0 && +value < 100)
                 targetEl.value = targetEl.value.split('').slice(0, 2).join('')
             else if (+value > maxNumber) {
                 targetEl.value = maxNumber.toString()
             }
-        else {
-            return targetEl.value = value.length == 2 ? value[0] : ""
-        }
+            else {
+                return targetEl.value = value.length == 2 ? value[0] : ""
+            }
 
         switch (id) {
             case 1:
@@ -26,19 +26,22 @@ const SizePanel = () => {
                 break;
 
             case 2:
-                dispatch(actions.setFieldSize({height: +value}))
+                dispatch(actions.setFieldSize({ height: +value }))
                 break;
 
             case 3:
-                dispatch(actions.setFieldSize({width: +value}))
+                dispatch(actions.setFieldSize({ width: +value }))
                 break;
 
         }
 
+
     }
-
-    const fullFocus = (el: FocusEvent): void => { el.target.select() }
-
+    
+    const fullFocus = (el: FocusEvent): void => {
+        const a = el.target as HTMLInputElement
+        a.select()
+    }
 
 
     return (
