@@ -1,25 +1,80 @@
-.zonePalen {
-    width: 50%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    flex-direction: column;
+.openPanel {
+    display: none;
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    background-color: var(--orange);
+    border-radius: 9px;
+    margin: 10px;
+    top: 0;
+    right: 0;
+    z-index: 100;
+    display: grid;
+    place-items: center;
+    transition: transform 0.2s cubic-bezier(0.23, 1, 0.320, 1);
+    animation: spawn;
+    animation-duration: 0.2s;
+    animation-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    animation-fill-mode: forwards;
 
+    &:hover {
+        transform: scale(1.1);
+    }
+
+}
+
+.panelEl {
+    display: none;
+    position: relative;
+    z-index: 999;
+    width: 650px;
+    height: 500px;
+    z-index: 44;
+
+    animation: spawn;
+    animation-duration: .2s;
+    animation-timing-function: cubic-bezier(0.28, 0.17, 0.95, 1.21);
+    animation-fill-mode: forwards;
+
+    .panelBtn {
+        display: flex;
+        position: absolute;
+        gap: 10px;
+        top: -50px;
+        right: 10px;
+
+        .btn {
+            border: 0;
+            background-color: var(--orange);
+            border-radius: 9px;
+            border: 1px solid #222;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+
+            .icon {
+                font-size: 2rem;
+            }
+        }
+
+    }
 
     .panel {
         border-radius: 15px;
-        border: 1px solid #FF9130;
-        width: clamp(800px, 60%, 70%);
-        min-height: 500px;
+        border: 1px solid var(--orange);
+
         overflow: hidden;
         display: flex;
-        align-items: center;
+        background-color: #222;
+        position: relative;
+
+
 
         .bookmark {
-            width: 25%;
-            height: 100%;
+            width: 65px;
+            height: 500px;
             display: flex;
             align-items: start;
             justify-content: space-around;
@@ -41,8 +96,21 @@
 
         .place {
             width: 100%;
+            height: 100%;
             margin: 0 20px 0 10%;
-            color: #FF9130; //FFDD83
+            color: var(--orange); //FFDD83
+            position: relative;
+            margin-top: 30px;
         }
+    }
+}
+
+@keyframes spawn {
+    0% {
+        transform: scale(0);
+    }
+
+    100% {
+        transform: scale(1);
     }
 }

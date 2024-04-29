@@ -1,17 +1,67 @@
 .zoneCanvas {
-    min-width: 50%;
-    width: 50%;
-    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     position: relative;
+    z-index: 2;
 
-    .countLiveAge { 
+    .convasPanel {
+        display: flex;
+        align-items: center;
+        gap: 20px;
         margin-bottom: 10px;
-        font-size: 1.2rem;
-        color: #d9d9d9;
+
+        .btn {
+            border: 0;
+            background-color: var(--white);
+            border-radius: 9px;
+            border: 1px solid #222;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+
+            .icon {
+                font-size: 2rem;
+            }
+        }
+
+        .countLiveAge {
+
+            font-size: 1.2rem;
+            color: var(--white);
+        }
     }
+
+    .fillField {
+        bottom: -50px;
+        position: absolute;
+        display: flex;
+        align-items: center;
+        color: var(--white);
+        margin-top: 10px;
+
+
+        .inputFill {
+            width: 60px;
+            height: 40px;
+            border-radius: 4px;
+            text-align: center;
+            color: var(--dark);
+            margin-right: 10px;
+        }
+
+        .btnFill {
+            padding: 8px 10px;
+            border-radius: 4px;
+            color: var(--dark);
+            border: none;
+            margin-left: 15px;
+        }
+    }
+
+
 
 }

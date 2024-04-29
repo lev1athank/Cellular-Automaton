@@ -1,0 +1,60 @@
+.aboutGame {
+    font-size: 1.2rem;
+    height: 85%;
+    position: relative;
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 50px;
+        background: linear-gradient(-180deg, var(--dark) 50%, transparent 100%);
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 50px;
+        background: linear-gradient(0, var(--dark) 50%, transparent 100%);
+    }
+
+    .text {
+        color: var(--white);
+        padding-top: 40px;
+        padding-bottom: 40px;
+
+        overflow-y: scroll;
+        height: 100%;
+
+        &::-webkit-scrollbar {
+            width: 2px;
+            height: 2px;
+        }
+
+        &::-webkit-scrollbar-button {
+            width: 0px;
+            height: 0px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: var(--white);
+            border: 0px none var(--white);
+            border-radius: 50px;
+        }
+
+        &::-webkit-scrollbar-thumb:hover {
+            background: var(--white);
+        }
+
+        &::-webkit-scrollbar-thumb:active {
+            background: #000000;
+        }
+
+
+    }
+}

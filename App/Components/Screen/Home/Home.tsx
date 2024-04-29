@@ -4,7 +4,7 @@ import style from './style.module.scss'
 import Panels from './Sections/panels/Panels'
 
 const Home: FC = () => {
-  
+
   return (
 
     <div className={style.conteiner} >

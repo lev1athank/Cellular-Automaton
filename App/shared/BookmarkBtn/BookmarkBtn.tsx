@@ -1,11 +1,11 @@
 import style from './style.module.scss'
 import { IBookmarkEl } from '../../assets/interface/BookmarkBtn'
+import { useTypedSelector } from '../../../src/hooks/useTypedSelector'
 const BookmarkBtn = (prop: IBookmarkEl) => {
-
-  console.log(prop.isActive);
+  const { isRun } = useTypedSelector(state => state)
 
   return (
-    <div className={style.buttonBtn + (prop.isActive ? (" " + style.active) : "")} onClick={() => prop.setActive({el: prop.element, text: prop.text})}>{prop.text}</div>
+    <button disabled={isRun} className={style.buttonBtn + (prop.isActive ? (" " + style.active) : "") + (isRun ? (" " + style.running) : "")} onClick={() => prop.setActive({el: prop.element, text: prop.text})}><i className={prop.text + " " + style.icon}></i></button>
   )
 }
 

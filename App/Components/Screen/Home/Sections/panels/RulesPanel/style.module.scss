@@ -1,41 +1,39 @@
-.startPanel {
-    width: 300px;
-    height: 60px;
-    background-color: #3a3a3a;
-    border-radius: 15px;
-    position: relative;
-    overflow: hidden;
+.rulesPanel {
+    width: 100%;
+    height: 420px;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    
-    &::after {
-        content: "";
-        width: 100%;
-        height: 20px;
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        background-color: #FF9130;
+    flex-direction: column;
+    .rules {
+        height: 250px;
+        font-size: 1.3rem;
+        width: 88%;
 
-    }
+        .rule {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+            
 
-    .title {
-        display: flex;
-        height: 40px;
-        color: #222;
-        font-size: 1.4rem;
-        transition: color .2s cubic-bezier(0.39, 0.575, 0.565, 1);
+            .inputRule {
+                color: black;
+                width: 150px;
+                padding: 5px;
+                background-color: var(--white);
+                border-radius: 9px;
+            }
 
-    }
-
-    &:hover {
-        .title {
-            color: #FF9130;
+            .randomBtn {
+                color: var(--orange);
+                font-size: 1.8rem;
+                cursor: pointer;
+            }
         }
-
     }
 
-
+    .ruleColors {
+        height: 210px;
+        .title {
+            font-size: 1.3rem;
+        }
+    }
 }

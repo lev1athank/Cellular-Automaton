@@ -4,7 +4,7 @@ const Schematics = () => {
 
     return (
         <div className={style.schematicsPanel}>
-            <span>готовые схемы</span>
+            <p>готовые схемы</p>
             <div className={style.carouselSchemes}>
                 <ShamaticsCarousel />
             </div>

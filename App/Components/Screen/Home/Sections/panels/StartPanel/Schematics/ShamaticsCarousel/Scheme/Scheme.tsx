@@ -12,9 +12,9 @@ const Scheme = (element: { id: number }) => {
 	const toggleActive = ()=> dispatch(actions.setActivePrints(isActive? -1 : element.id))
 
 	return (
-		<div className={style.scheme + " " + (isActive ? style.active : "")} onClick={toggleActive} >
+		<span className={style.scheme + " " + (isActive ? style.active : "")} onClick={toggleActive} >
 			<img src={dataPrints[element.id].image} alt="" />
-		</div>
+		</span>
 	)
 }
 

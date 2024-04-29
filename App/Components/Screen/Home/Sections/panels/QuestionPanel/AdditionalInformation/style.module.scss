@@ -1,0 +1,13 @@
+.additionalInformation {
+    margin-top: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+
+    a {
+        text-decoration: none;
+        color: var(--orange);
+        padding: 10px;
+        border: 2px solid var(--orange);
+    }
+}
