@@ -11,7 +11,7 @@ const SizePanel = () => {
 
         const value = targetEl.value
         if (isFinite(+value) && value)
-            if (+value > 0 && +value < 100)
+            if (+value > 0 && +value <= maxNumber)
                 targetEl.value = targetEl.value.split('').slice(0, 2).join('')
             else if (+value > maxNumber) {
                 targetEl.value = maxNumber.toString()
@@ -22,15 +22,15 @@ const SizePanel = () => {
 
         switch (id) {
             case 1:
-                dispatch(actions.setPix(+value))
+                dispatch(actions.setPix(+targetEl.value))
                 break;
 
             case 2:
-                dispatch(actions.setFieldSize({ height: +value }))
+                dispatch(actions.setFieldSize({ height: +targetEl.value }))
                 break;
 
             case 3:
-                dispatch(actions.setFieldSize({ width: +value }))
+                dispatch(actions.setFieldSize({ width: +targetEl.value }))
                 break;
 
         }
@@ -69,7 +69,7 @@ const SizePanel = () => {
                     <input className={style.inputFieldLeft} defaultValue={settings.height} onChange={(el) => setValue(el, 50, 2)} onFocus={(el) => fullFocus(el)} />
                     <i className={"fa-solid fa-arrow-left " + style.fieldLeftWidth + " " + style.arrow}></i>
                     <i className={"fa-solid fa-arrow-right " + style.fieldRightWidth + " " + style.arrow}></i>
-                    <input type="number" className={style.inputFieldDown} defaultValue={settings.width} onChange={(el) => setValue(el, 30, 3)} onFocus={(el) => fullFocus(el)} />
+                    <input type="number" className={style.inputFieldDown} defaultValue={settings.width} onChange={(el) => setValue(el, 50, 3)} onFocus={(el) => fullFocus(el)} />
 
                 </div>
             </div>
