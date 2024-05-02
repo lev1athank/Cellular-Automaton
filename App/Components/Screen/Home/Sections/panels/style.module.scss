@@ -64,11 +64,11 @@
     .panel {
         border-radius: 15px;
         border: 1px solid var(--orange);
-
+        width: 650px;
         overflow: hidden;
         display: flex;
         background-color: #222;
-        position: relative;
+        position: absolute;
 
 
 
