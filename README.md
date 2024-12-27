@@ -1,30 +1,13 @@
-# React + TypeScript + Vite
+"Игра в жизнь" (Клеточный автомат)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+"Игра в жизнь" — это математическая модель, разработанная английским математиком Джоном Хортоном Конуэем в 1970 году. Эта простая, но глубокая симуляция представляет собой клеточный автомат, в котором каждой клетке на бесконечной двумерной решетке присваивается одно из двух состояний: «живая» или «мертвая». Развитие системы происходит по определенным правилам, которые описываются следующим образом:
 
-Currently, two official plugins are available:
+Живая клетка с двумя или тремя живыми соседями остается живой.
+Мертвая клетка с точно тремя живыми соседями становится живой.
+Живая клетка с менее чем двумя живыми соседями умирает от одиночества.
+Живая клетка с более чем тремя живыми соседями умирает от перенаселенности.
+Правила симуляции настолько просты, что позволяют создавать сложные структуры, такие как "двигающиеся" машины, формы, которые повторяют себя (стабильные структуры), и другие интересные паттерны. Несмотря на отсутствие явного искусственного интеллекта, "Игра в жизнь" демонстрирует множество удивительных и неожиданных свойств.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+В "Игре в жизнь" не предусмотрены "игроки" в традиционном смысле, поскольку процесс саморазвивается. Каждый шаг зависит только от исходных данных, и, в зависимости от стартовой конфигурации клеток, игра может вести себя совершенно по-разному. Об этом и заключается магия "Игры в жизнь" — из простых правил может возникнуть сложный, многослойный порядок и хаос.
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+"Игра в жизнь" является замечательным примером того, как детерминированные системы, изначально кажущиеся простыми, способны имитировать сложные процессы, эволюцию и даже формы живых существ.
